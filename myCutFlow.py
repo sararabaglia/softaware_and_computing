@@ -34,7 +34,7 @@ for j_entry in range(entries1):
               if mytree1.GetLeaf("mct2").GetValue()>160 :
                   if mytree1.GetLeaf("met").GetValue()>200 :
                       count2 = count2 + 1
-                      if mytree1.GetLeaf("mt").GetValue()>100 and mytree1.GetLeaf("mt").GetValue()<140 and mytree1.GetLeaf("met").GetValue()>200 and mytree1.GetLeaf("nJet30").GetValue()>=2 and mytree1.GetLeaf("nJet30").GetValue()<4 and mytree1.GetLeaf("mct2").GetValue()>160 and mytree1.GetLeaf("nLep_base").GetValue()==1 andmytree1.GetLeaf("nLep_signal").GetValue()==1 and mytree1.GetLeaf("mt").GetValue()>50 and mytree1.GetLeaf("nBJet30_MV2c10").GetValue()==2 and mytree1.GetLeaf("mbb").GetValue()>105 and mytree1.GetLeaf("mbb").GetValue()<135:
+                      if mytree1.GetLeaf("mt").GetValue()>100 and mytree1.GetLeaf("mt").GetValue()<140 and mytree1.GetLeaf("met").GetValue()>200 and mytree1.GetLeaf("nJet30").GetValue()>=2 and mytree1.GetLeaf("nJet30").GetValue()<4 and mytree1.GetLeaf("mct2").GetValue()>160 and mytree1.GetLeaf("nLep_base").GetValue()==1 and mytree1.GetLeaf("nLep_signal").GetValue()==1 and mytree1.GetLeaf("mt").GetValue()>50 and mytree1.GetLeaf("nBJet30_MV2c10").GetValue()==2 and mytree1.GetLeaf("mbb").GetValue()>105 and mytree1.GetLeaf("mbb").GetValue()<135:
                        count3 = count3 + 1
                       else: continue
                   else: continue
