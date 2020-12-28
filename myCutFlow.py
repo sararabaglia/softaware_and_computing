@@ -126,6 +126,25 @@ entries7bkg = mytree7bkg.GetEntriesFast()
 entries8bkg = mytree8bkg.GetEntriesFast()
 entries9bkg = mytree9bkg.GetEntriesFast()
 
+countbkg1 = 0
+countbkg1b = 0
+countbkg2 = 0
+countbkg2b = 0
+countbkg3 = 0
+countbkg3b = 0
+countbkg4 = 0
+countbkg4b = 0
+countbkg5 = 0
+countbkg5b = 0
+countbkg6 = 0
+countbkg6b = 0
+countbkg7 = 0
+countbkg7b = 0
+countbkg8 = 0
+countbkg8b = 0
+countbkg9 = 0
+countbkg9b = 0
+
 for a_entry in range(entries1bkg):
  mytree1bkg.GetEvent(a_entry)
  if (mytree1bkg.GetLeaf("met").GetValue()>200 and mytree1bkg.GetLeaf("nJet30").GetValue()>=2 and mytree1bkg.GetLeaf("met").GetValue()<4 and mytree1bkg.GetLeaf("nLep_base").GetValue()==1 and mytree1bkg.GetLeaf("nLep_signal").GetValue()==1):
@@ -147,4 +166,65 @@ for a_entry in range(entries1bkg):
   else: continue
  else: continue
  
- 
+for b_entry in range(entries2bkg):
+ mytree2bkg.GetEvent(b_entry)
+ if (mytree2bkg.GetLeaf("met").GetValue()>200 and mytree2bkg.GetLeaf("nJet30").GetValue()>=2 and mytree2bkg.GetLeaf("met").GetValue()<4 and mytree2bkg.GetLeaf("nLep_base").GetValue()==1 and mytree2bkg.GetLeaf("nLep_signal").GetValue()==1):
+  countbkg2 = countbkg2 + 1
+  if mytree2bkg.GetLeaf("mt").GetValue()>50:
+   if mytree2bkg.GetLeaf("nBJet30_MV2c10").GetValue()==2:
+    if mytree2bkg.GetLeaf("mbb").GetValue()>50:
+     if mytree2bkg.GetLeaf("mbb").GetValue()>105 and mytree2bkg.GetLeaf("mbb").GetValue()<135:
+      if mytree2bkg.GetLeaf("mct2").GetValue()>240:
+       if mytree2bkg.GetLeaf("met").GetValue()>240:
+        if mytree2bkg.GetLeaf("mt").GetValue()>100:
+         countbkg2b = countbkg2b + 1
+        else: continue
+       else: continue
+      else: continue
+     else: continue
+    else: continue
+   else: continue
+  else: continue
+ else: continue 
+
+for c_entry in range(entries3bkg):
+ mytree3bkg.GetEvent(c_entry)
+ if (mytree3bkg.GetLeaf("met").GetValue()>200 and mytree3bkg.GetLeaf("nJet30").GetValue()>=2 and mytree3bkg.GetLeaf("met").GetValue()<4 and mytree3bkg.GetLeaf("nLep_base").GetValue()==1 and mytree3bkg.GetLeaf("nLep_signal").GetValue()==1):
+  countbkg3 = countbkg3 + 1
+  if mytree3bkg.GetLeaf("mt").GetValue()>50:
+   if mytree3bkg.GetLeaf("nBJet30_MV2c10").GetValue()==2:
+    if mytree3bkg.GetLeaf("mbb").GetValue()>50:
+     if mytree3bkg.GetLeaf("mbb").GetValue()>105 and mytree3bkg.GetLeaf("mbb").GetValue()<135:
+      if mytree3bkg.GetLeaf("mct2").GetValue()>240:
+       if mytree3bkg.GetLeaf("met").GetValue()>240:
+        if mytree3bkg.GetLeaf("mt").GetValue()>100:
+         countbkg3b = countbkg3b + 1
+        else: continue
+       else: continue
+      else: continue
+     else: continue
+    else: continue
+   else: continue
+  else: continue
+ else: continue
+
+for a_entry in range(entries1bkg):
+ mytree1bkg.GetEvent(a_entry)
+ if (mytree1bkg.GetLeaf("met").GetValue()>200 and mytree1bkg.GetLeaf("nJet30").GetValue()>=2 and mytree1bkg.GetLeaf("met").GetValue()<4 and mytree1bkg.GetLeaf("nLep_base").GetValue()==1 and mytree1bkg.GetLeaf("nLep_signal").GetValue()==1):
+  countbkg1 = countbkg1 + 1
+  if mytree1bkg.GetLeaf("mt").GetValue()>50:
+   if mytree1bkg.GetLeaf("nBJet30_MV2c10").GetValue()==2:
+    if mytree1bkg.GetLeaf("mbb").GetValue()>50:
+     if mytree1bkg.GetLeaf("mbb").GetValue()>105 and mytree1bkg.GetLeaf("mbb").GetValue()<135:
+      if mytree1bkg.GetLeaf("mct2").GetValue()>240:
+       if mytree1bkg.GetLeaf("met").GetValue()>240:
+        if mytree1bkg.GetLeaf("mt").GetValue()>100:
+         countbkg1b = countbkg1b + 1
+        else: continue
+       else: continue
+      else: continue
+     else: continue
+    else: continue
+   else: continue
+  else: continue
+ else: continue 
