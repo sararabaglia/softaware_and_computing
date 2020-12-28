@@ -81,7 +81,7 @@ count1c = 0
 count2c = 0
 count3c = 0
 
-for w_entry in range(entries1):
+for w_entry in range(entries3):
  mytree3.GetEvent(w_entry)
  if (mytree3.GetLeaf("met").GetValue()>150.0 and mytree3.GetLeaf("nJet30").GetValue()>=2 and mytree3.GetLeaf("nJet30").GetValue()<4 and mytree3.GetLeaf("nLep_base").GetValue()==1 and mytree3.GetLeaf("nLep_signal").GetValue()==1 and mytree3.GetLeaf("mt").GetValue()>50):
   count1c = count1c +1
@@ -105,5 +105,8 @@ print(count1c)
 print(count2c)
 print(count3c)
 
-
+myfile2 = TFile('allTrees_bkg_NoSys.root')
+mytree1bkg = myfile.Get('C1N2_WZ_300_0_NoSys')
+mytree2bkg = myfile.Get('C1N2_WZ_500_200_NoSys')
+mytree3bkg = myfile.Get('C1N2_WZ_1200_200_NoSys')
 
