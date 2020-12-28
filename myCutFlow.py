@@ -106,7 +106,45 @@ print(count2c)
 print(count3c)
 
 myfile2 = TFile('allTrees_bkg_NoSys.root')
-mytree1bkg = myfile.Get('C1N2_WZ_300_0_NoSys')
-mytree2bkg = myfile.Get('C1N2_WZ_500_200_NoSys')
-mytree3bkg = myfile.Get('C1N2_WZ_1200_200_NoSys')
+mytree1bkg = myfile.Get('diboson_NoSys')
+mytree2bkg = myfile.Get('multiboson_NoSys')
+mytree3bkg = myfile.Get('singletop_NoSys')
+mytree4bkg = myfile.Get('ttbar_NoSys')
+mytree5bkg = myfile.Get('tth_NoSys')
+mytree6bkg = myfile.Get('ttv_NoSys')
+mytree7bkg = myfile.Get('vh_NoSys')
+mytree8bkg = myfile.Get('wjets_NoSys')
+mytree9bkg = myfile.Get('zjets_NoSys')
 
+entries1bkg = mytree1bkg.GetEntriesFast()
+entries2bkg = mytree2bkg.GetEntriesFast()
+entries3bkg = mytree3bkg.GetEntriesFast()
+entries4bkg = mytree4bkg.GetEntriesFast()
+entries5bkg = mytree5bkg.GetEntriesFast()
+entries6bkg = mytree6bkg.GetEntriesFast()
+entries7bkg = mytree7bkg.GetEntriesFast()
+entries8bkg = mytree8bkg.GetEntriesFast()
+entries9bkg = mytree9bkg.GetEntriesFast()
+
+for a_entry in range(entries1bkg):
+ mytree1bkg.GetEvent(a_entry)
+ if (mytree1bkg.GetLeaf("met").GetValue()>200 and mytree1bkg.GetLeaf("nJet30").GetValue()>=2 and mytree1bkg.GetLeaf("met").GetValue()<4 and mytree1bkg.GetLeaf("nLep_base").GetValue()==1 and mytree1bkg.GetLeaf("nLep_signal").GetValue()==1):
+  countbkg1 = countbkg1 + 1
+  if mytree1bkg.GetLeaf("mt").GetValue()>50:
+   if mytree1bkg.GetLeaf("nBJet30_MV2c10").GetValue()==2:
+    if mytree1bkg.GetLeaf("mbb").GetValue()>50:
+     if mytree1bkg.GetLeaf("mbb").GetValue()>105 and mytree1bkg.GetLeaf("mbb").GetValue()<135:
+      if mytree1bkg.GetLeaf("mct2").GetValue()>240:
+       if mytree1bkg.GetLeaf("met").GetValue()>240:
+        if mytree1bkg.GetLeaf("mt").GetValue()>100:
+         countbkg1b = countbkg1b + 1
+        else: continue
+       else: continue
+      else: continue
+     else: continue
+    else: continue
+   else: continue
+  else: continue
+ else: continue
+ 
+ 
