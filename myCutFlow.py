@@ -1,11 +1,9 @@
 from ROOT import *
-import re
+from array import *
 import os
 import math
-import logging
-import re
-import glob
 from pprint import pprint
+
 
 #take the file root for the signal
 myfile = TFile('allTrees_signal_NoSys.root')
@@ -24,6 +22,12 @@ print(entries1)
 print(entries2)
 print(entries3)
 
+signal_PS_counter = [[0],[0],[0]]
+signal_counter = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]]
+signal_PS_counter_weighed = [[0],[0],[0]]
+signal_counter_weighed = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]]
+
+#start analysis of first tree
 #set to zero the value of the counters
 cutPS = 0 #counter for preselection cut without a weight, so each events count 1
 cutPSweighed = 0 #counter for preselection cut with the weight of each events
@@ -83,66 +87,79 @@ for j_entry in range(entries1):
   cut8 = cut8 + 1
   cut8weighed = cut8weighed + weight
  else: continue
-            
-print(count1)
-print(count2)
-print(count3)
+#end analysis of first tree
 
-count1b = 0
-count2b = 0
-count3b = 0
+#start analysis of second tree
+            
+#set to zero the value of the counters
+cutPS = 0 #counter for preselection cut without a weight, so each events count 1
+cutPSweighed = 0 #counter for preselection cut with the weight of each events
+cut1 = 0
+cut1weighed = 0
+cut2 = 0
+cut2weighed = 0
+cut3 = 0
+cut3weighed = 0
+cut4 = 0
+cut4weighed = 0
+cut5 = 0
+cut5weighed = 0
+cut6 = 0
+cut6weighed = 0
+cut7 = 0
+cut7weighed = 0
+cut8 = 0
+cut8weighed = 0
 
 for i_entry in range(entries2):
  mytree2.GetEvent(i_entry)
- if (mytree2.GetLeaf("met").GetValue()>150.0 and mytree2.GetLeaf("nJet30").GetValue()>=2 and mytree2.GetLeaf("nJet30").GetValue()<4 and mytree2.GetLeaf("nLep_base").GetValue()==1 and mytree2.GetLeaf("nLep_signal").GetValue()==1 and mytree2.GetLeaf("mt").GetValue()>50):
-  count1b = count1b +1
-  if mytree2.GetLeaf("nBJet30_MV2c10").GetValue()==2:
-      if mytree2.GetLeaf("mbb").GetValue()>50:
-          if mytree2.GetLeaf("mbb").GetValue()>105 and mytree2.GetLeaf("mbb").GetValue()<135 :
-              if mytree2.GetLeaf("mct2").GetValue()>160 :
-                  if mytree2.GetLeaf("met").GetValue()>200 :
-                      count2b = count2b + 1
-                      if mytree2.GetLeaf("mt").GetValue()>100 and mytree2.GetLeaf("mt").GetValue()<140 and mytree2.GetLeaf("met").GetValue()>200 and mytree2.GetLeaf("nJet30").GetValue()>=2 and mytree2.GetLeaf("nJet30").GetValue()<4 and mytree2.GetLeaf("mct2").GetValue()>160 and mytree2.GetLeaf("nLep_base").GetValue()==1 and mytree2.GetLeaf("nLep_signal").GetValue()==1 and mytree2.GetLeaf("mt").GetValue()>50 and mytree2.GetLeaf("nBJet30_MV2c10").GetValue()==2 and mytree2.GetLeaf("mbb").GetValue()>105 and mytree2.GetLeaf("mbb").GetValue()<135:
-                       count3b = count3b + 1
-                      else: continue
-                  else: continue
-              else: continue
-          else: continue
-      else: continue
-  else: continue
+ weight = getattr(mytree2, "genWeight")*getattr(mytree2, "pileupWeight")*getattr(mytree2, "eventWeight")*getattr(mytree2, "leptonWeight")*getattr(mytree2, "bTagWeight")
+ if (getattr(mytree2, "met")>200 and getattr(mytree2, "nJet30")>=1 and getattr(mytree2, "nLep_base")==1 and getattr(mytree2, "nLep_signal")==1 and getattr(mytree1, "mjj")<200 and getattr(mytree2, "mjj")>50 getattr(mytree2, "mt")>50):
+  cutPS = cutPS + 1
+  cutPSweighed = cutPSweighed + weight
  else: continue
-  
-print(count1b)
-print(count2b)
-print(count3b)
-
-count1c = 0
-count2c = 0
-count3c = 0
-
-for w_entry in range(entries3):
- mytree3.GetEvent(w_entry)
- if (mytree3.GetLeaf("met").GetValue()>150.0 and mytree3.GetLeaf("nJet30").GetValue()>=2 and mytree3.GetLeaf("nJet30").GetValue()<4 and mytree3.GetLeaf("nLep_base").GetValue()==1 and mytree3.GetLeaf("nLep_signal").GetValue()==1 and mytree3.GetLeaf("mt").GetValue()>50):
-  count1c = count1c +1
-  if mytree3.GetLeaf("nBJet30_MV2c10").GetValue()==2:
-      if mytree3.GetLeaf("mbb").GetValue()>50:
-          if mytree3.GetLeaf("mbb").GetValue()>105 and mytree3.GetLeaf("mbb").GetValue()<135 :
-              if mytree3.GetLeaf("mct2").GetValue()>160 :
-                  if mytree3.GetLeaf("met").GetValue()>200 :
-                      count2c = count2c + 1
-                      if mytree3.GetLeaf("mt").GetValue()>100 and mytree3.GetLeaf("mt").GetValue()<140 and mytree3.GetLeaf("met").GetValue()>200 and mytree3.GetLeaf("nJet30").GetValue()>=2 and mytree3.GetLeaf("nJet30").GetValue()<4 and mytree3.GetLeaf("mct2").GetValue()>160 and mytree3.GetLeaf("nLep_base").GetValue()==1 and mytree3.GetLeaf("nLep_signal").GetValue()==1 and mytree3.GetLeaf("mt").GetValue()>50 and mytree3.GetLeaf("nBJet30_MV2c10").GetValue()==2 and mytree3.GetLeaf("mbb").GetValue()>105 and mytree3.GetLeaf("mbb").GetValue()<135:
-                       count3c = count3c + 1
-                      else: continue
-                  else: continue
-              else: continue
-          else: continue
-      else: continue
-  else: continue
+ if getattr(mytree2, "nLep_base")==1 and getattr(mytree2, "nLep_signal")==1:
+  cut1 = cut1 + 1
+  cut1weighed = cut1weighed + weight
+ else: continue 
+ if getattr(mytree2, "lep1Pt") > 25:
+  cut2 = cut2 + 1
+  cut2weighed = cut2weighed + weight
  else: continue
+ if getattr(mytree2, "nJet30")==2 or getattr(mytree2, "nJet30")==3:
+  cut3 = cut3 + 1
+  cut3weighed = cut3weighed + weight
+ else: continue 
+ if getattr(mytree2, "nBJet30_DL1)==0:
+  cut4 = cut4 + 1
+  cut4weighed = cut4weighed + weight
+ else: continue
+ if getattr(mytree2, "met")>200:
+  cut5 = cut5 + 1
+  cut5weighed = cut5weighed + weight
+ else: continue
+ if getattr(mytree2, "met_phi")<2.8:
+  cut6 = cut6 + 1
+  cut6weighed = cut6weighed + weight
+ else: continue
+ if getattr(mytree2, "mjj")<105 and getattr(mytree2, "mjj")>70:
+  cut7 = cut7 + 1
+  cut7weighed = cut7weighed + weight
+ else: continue
+ if getattr(mytree2, "")==0:
+  cut8 = cut8 + 1
+  cut8weighed = cut8weighed + weight
+ else: continue
+            
+print("preselection cut")
+for r in signal_PS_counter:
+            print()
+print("cut flow")
+for t in signal_counter:
+            for c in r:
+             print(c, end = " ")
+            print()
 
-print(count1c)
-print(count2c)
-print(count3c)
 
 myfile2 = TFile('allTrees_bkg_NoSys.root')
 mytree1bkg = myfile.Get('diboson_NoSys')
