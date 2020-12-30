@@ -26,6 +26,7 @@ signal_PS_counter = [[0],[0],[0]]
 signal_counter = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]]
 signal_PS_counter_weighed = [[0],[0],[0]]
 signal_counter_weighed = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]]
+bkg_PS_counter = []
 
 #start analysis of first tree
 #set to zero the value of the counters
