@@ -9,18 +9,13 @@ from pprint import pprint
 myfile = TFile('allTrees_signal_NoSys.root')
 
 #study three different hypothesis for the masses of supersymmetric particles produced
-mytree1 = myfile.Get('C1N2_WZ_300_0_NoSys')
-mytree2 = myfile.Get('C1N2_WZ_500_200_NoSys')
-mytree3 = myfile.Get('C1N2_WZ_1200_200_NoSys')
+signal_tree = [myfile.Get('C1N2_WZ_300_0_NoSys'), myfile.Get('C1N2_WZ_500_200_NoSys'), myfile.Get('C1N2_WZ_500_200_NoSys')]
 
 #total number of events in each trees
-entries1 = mytree1.GetEntries()
-entries2 = mytree2.GetEntries()
-entries3 = mytree3.GetEntries()
-
-print(entries1)
-print(entries2)
-print(entries3)
+signal_entries = [0,0,0]
+signal_entries[0] = signal_tree[0].GetEntries()
+signal_entries[1] = signal_tree[1].GetEntries()
+signal_entries[2] = signal_tree[2].GetEntries()
 
 signal_PS_counter = [[0],[0],[0]]
 signal_counter = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]]
