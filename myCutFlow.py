@@ -17,265 +17,113 @@ signal_entries[0] = signal_tree[0].GetEntries()
 signal_entries[1] = signal_tree[1].GetEntries()
 signal_entries[2] = signal_tree[2].GetEntries()
 
-signal_PS_counter = [[0],[0],[0]]
-signal_counter = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]]
-signal_PS_counter_weighed = [[0],[0],[0]]
-signal_counter_weighed = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]]
-bkg_PS_counter = []
+signal_counter = [["Preselection Cut",0,0,0],["Cut 1 (Nlep=1)",0,0,0],
+                  ["Cut 2 (pT>25)",0,0,0],
+                  ["Cut 3 (Njet(pT>30)=2-3)",0,0,0],
+                  ["Cut 4 (Nb-jet(pT>30)=0)",0,0,0],
+                  ["Cut 5 (MET>200)",0,0,0],
+                  ["Cut 6 (Delta_phi(l,met)<2.8)",0,0,0],
+                  ["Cut 7 (70<mjj<105)",0,0,0],
+                  ["Cut 8 (Nlarge-Rjet=0)",0,0,0],
+                  ["Cut 9a (200<mT<380)",0,0,0],
+                  ["Cut 9b (mT>380)",0,0,0]]
+signal_counter_weighed = [["Preselection Cut",0,0,0],["Cut 1 (Nlep=1)",0,0,0],
+                  ["Cut 2 (pT>25)",0,0,0],
+                  ["Cut 3 (Njet(pT>30)=2-3)",0,0,0],
+                  ["Cut 4 (Nb-jet(pT>30)=0)",0,0,0],
+                  ["Cut 5 (MET>200)",0,0,0],
+                  ["Cut 6 (Delta_phi(l,met)<2.8)",0,0,0],
+                  ["Cut 7 (70<mjj<105)",0,0,0],
+                  ["Cut 8 (Nlarge-Rjet=0)",0,0,0],
+                  ["Cut 9a (200<mT<380)",0,0,0],
+                  ["Cut 9b (mT>380)",0,0,0]]
+bkg_counter = [["Preselection Cut",0,0,0,0,0,0,0,0,0,0,0],["Cut 1 (Nlep=1)",0,0,0,0,0,0,0,0,0],
+                  ["Cut 2 (pT>25)",0,0,0,0,0,0,0,0,0],
+                  ["Cut 3 (Njet(pT>30)=2-3)",0,0,0,0,0,0,0,0,0],
+                  ["Cut 4 (Nb-jet(pT>30)=0)",0,0,0,0,0,0,0,0,0],
+                  ["Cut 5 (MET>200)",0,0,0,0,0,0,0,0,0],
+                  ["Cut 6 (Delta_phi(l,met)<2.8)",0,0,0,0,0,0,0,0,0],
+                  ["Cut 7 (70<mjj<105)",0,0,0,0,0,0,0,0,0],
+                  ["Cut 8 (Nlarge-Rjet=0)",0,0,0,0,0,0,0,0,0],
+                  ["Cut 9a (200<mT<380)",0,0,0,0,0,0,0,0,0],
+                  ["Cut 9b (mT>380)",0,0,0,0,0,0,0,0]]
 
 #start analysis of first tree
 #set to zero the value of the counters
-cutPS = 0 #counter for preselection cut without a weight, so each events count 1
-cutPSweighed = 0 #counter for preselection cut with the weight of each events
-cut1 = 0
-cut1weighed = 0
-cut2 = 0
-cut2weighed = 0
-cut3 = 0
-cut3weighed = 0
-cut4 = 0
-cut4weighed = 0
-cut5 = 0
-cut5weighed = 0
-cut6 = 0
-cut6weighed = 0
-cut7 = 0
-cut7weighed = 0
-cut8 = 0
-cut8weighed = 0
-cut9 = 0
-cut9weighed = 0
-cut10 = 0
-cut10weighed = 0
-
-for j_entry in range(entries1):
- mytree1.GetEvent(j_entry)
- weight = getattr(mytree1, "genWeight")*getattr(mytree1, "pileupWeight")*getattr(mytree1, "eventWeight")*getattr(mytree1, "leptonWeight")*getattr(mytree1, "bTagWeight")
- if (getattr(mytree1, "met")>200 and getattr(mytree1, "nJet30")>=1 and getattr(mytree1, "nLep_base")==1 and getattr(mytree1, "nLep_signal")==1 and getattr(mytree1, "mjj")<200 and getattr(mytree1, "mjj")>50 getattr(mytree1, "mt")>50):
-  cutPS = cutPS + 1
-  cutPSweighed = cutPSweighed + weight
+for tree_number in range(0,2):
+ for j_entry in range(signal_entries[tree_number]):
+  signal_tree[tree_number].GetEvent(j_entry)
+  weight = getattr(signal_tree[tree_number], "genWeight")*getattr(signal_tree[tree_number], "pileupWeight")*getattr(signal_tree[tree_number], "eventWeight")*getattr(signal_tree[tree_number], "leptonWeight")*getattr(signal_tree[tree_number], "bTagWeight")
+  if (getattr(signal_tree[tree_number], "met")>200
+      and getattr(signal_tree[tree_number], "nJet30")>=1
+      and getattr(signal_tree[tree_number], "nLep_base")==1
+      and getattr(signal_tree[tree_number], "nLep_signal")==1
+      and getattr(signal_tree[tree_number], "mjj")<200
+      and getattr(signal_tree[tree_number], "mjj")>50
+      getattr(signal_tree[tree_number], "mt")>50):
+   signal_counter[0][tree_number+1] = signal_counter[0][tree_number+1] + 1
+   signal_counter_weighed[0][tree_number+1] = signal_counter_weighed[0][tree_number+1] + weight
+  else: continue
+  if getattr(signal_tree[tree_number], "nLep_base")==1 and getattr(signal_tree[tree_number], "nLep_signal")==1:
+   signal_counter[1][tree_number+1] = signal_counter[1][tree_number+1] + 1
+   signal_counter_weighed[1][tree_number+1] = signal_counter_weighed[1][tree_number+1] + weight
+  else: continue
+  if getattr(signal_tree[tree_number], "lep1Pt")>25:
+   signal_counter[2][tree_number+1] = signal_counter[2][tree_number+1] + 1
+   signal_counter_weighed[2][tree_number+1] = signal_counter_weighed[2][tree_number+1] + weight
+  else: continue
+  if getattr(signal_tree[tree_number], "nJet30")==2 or getattr(signal_tree[tree_number], "nJet30")==3:
+   signal_counter[3][tree_number+1] = signal_counter[3][tree_number+1] + 1
+   signal_counter_weighed[3][tree_number+1] = signal_counter_weighed[3][tree_number+1] + weight
+  else: continue 
+  if getattr(signal_tree[tree_number], "nBJet30_DL1")==0:
+   signal_counter[4][tree_number+1] = signal_counter[4][tree_number+1] + 1
+   signal_counter_weighed[4][tree_number+1] = signal_counter_weighed[4][tree_number+1] + weight
+  else: continue
+  if getattr(signal_tree[tree_number], "met")>200:
+   signal_counter[5][tree_number+1] = signal_counter[5][tree_number+1] + 1
+   signal_counter_weighed[5][tree_number+1] = signal_counter_weighed[5][tree_number+1] + weight
+  else: continue
+  if getattr(signal_tree[tree_number], "met_phi")<2.8:
+   signal_counter[6][tree_number+1] = signal_counter[6][tree_number+1] + 1
+   signal_counter_weighed[6][tree_number+1] = signal_counter_weighed[6][tree_number+1] + weight
  else: continue
- if getattr(mytree1, "nLep_base")==1 and getattr(mytree1, "nLep_signal")==1:
-  cut1 = cut1 + 1
-  cut1weighed = cut1weighed + weight
+ if getattr(signal_tree[tree_number], "mjj")<105 and getattr(signal_tree[tree_number], "mjj")>70:
+  signal_counter[7][tree_number+1] = signal_counter[7][tree_number+1] + 1
+  signal_counter_weighed[7][tree_number+1] = signal_counter_weighed[7][tree_number+1] + weight
  else: continue
- if getattr(mytree1, "lep1Pt")>25:
-  cut2 = cut2 + 1
-  cut2weighed = cut2weighed + weight
- else: continue
- if getattr(mytree1, "nJet30")==2 or getattr(mytree1, "nJet30")==3:
-  cut3 = cut3 + 1
-  cut3weighed = cut3weighed + weight
- else: continue 
- if getattr(mytree1, "nBJet30_DL1)==0:
-  cut4 = cut4 + 1
-  cut4weighed = cut4weighed + weight
- else: continue
- if getattr(mytree1, "met")>200:
-  cut5 = cut5 + 1
-  cut5weighed = cut5weighed + weight
- else: continue
- if getattr(mytree1, "met_phi")<2.8:
-  cut6 = cut6 + 1
-  cut6weighed = cut6weighed + weight
- else: continue
- if getattr(mytree1, "mjj")<105 and getattr(mytree1, "mjj")>70:
-  cut7 = cut7 + 1
-  cut7weighed = cut7weighed + weight
- else: continue
- if getattr(mytree1, "")==0:
-  cut8 = cut8 + 1
-  cut8weighed = cut8weighed + weight
+ if getattr(signal_tree[tree_number], "")==0:
+  signal_counter[8][tree_number+1] = signal_counter[8][tree_number+1] + 1
+  signal_counter_weighed[8][tree_number+1] = signal_counter_weighed[8][tree_number+1] + weight
  else: continue            
- if getattr(mytree1, "mt")>200 and getattr(mytree1, "mt")<380:
-  cut9 = cut9 + 1
-  cut9weighed = cut9weighed + weight
- if getattr(mytree1, "mt")>380:
-  cut10 = cut10 + 1
-  cut10weighed = cut10weighed + weight
- else: continue
-            
-#end analysis of first tree
-
-#start analysis of second tree
-            
-#set to zero the value of the counters
-cutPS = 0 #counter for preselection cut without a weight, so each events count 1
-cutPSweighed = 0 #counter for preselection cut with the weight of each events
-cut1 = 0
-cut1weighed = 0
-cut2 = 0
-cut2weighed = 0
-cut3 = 0
-cut3weighed = 0
-cut4 = 0
-cut4weighed = 0
-cut5 = 0
-cut5weighed = 0
-cut6 = 0
-cut6weighed = 0
-cut7 = 0
-cut7weighed = 0
-cut8 = 0
-cut8weighed = 0
-cut9 = 0
-cut9weighed = 0
-cut10 = 0
-cut10weighed = 0
-            
-for i_entry in range(entries2):
- mytree2.GetEvent(i_entry)
- weight = getattr(mytree2, "genWeight")*getattr(mytree2, "pileupWeight")*getattr(mytree2, "eventWeight")*getattr(mytree2, "leptonWeight")*getattr(mytree2, "bTagWeight")
- if (getattr(mytree2, "met")>200 and getattr(mytree2, "nJet30")>=1 and getattr(mytree2, "nLep_base")==1 and getattr(mytree2, "nLep_signal")==1 and getattr(mytree1, "mjj")<200 and getattr(mytree2, "mjj")>50 getattr(mytree2, "mt")>50):
-  cutPS = cutPS + 1
-  cutPSweighed = cutPSweighed + weight
- else: continue
- if getattr(mytree2, "nLep_base")==1 and getattr(mytree2, "nLep_signal")==1:
-  cut1 = cut1 + 1
-  cut1weighed = cut1weighed + weight
- else: continue 
- if getattr(mytree2, "lep1Pt")>25:
-  cut2 = cut2 + 1
-  cut2weighed = cut2weighed + weight
- else: continue
- if getattr(mytree2, "nJet30")==2 or getattr(mytree2, "nJet30")==3:
-  cut3 = cut3 + 1
-  cut3weighed = cut3weighed + weight
- else: continue 
- if getattr(mytree2, "nBJet30_DL1)==0:
-  cut4 = cut4 + 1
-  cut4weighed = cut4weighed + weight
- else: continue
- if getattr(mytree2, "met")>200:
-  cut5 = cut5 + 1
-  cut5weighed = cut5weighed + weight
- else: continue
- if getattr(mytree2, "met_phi")<2.8:
-  cut6 = cut6 + 1
-  cut6weighed = cut6weighed + weight
- else: continue
- if getattr(mytree2, "mjj")<105 and getattr(mytree2, "mjj")>70:
-  cut7 = cut7 + 1
-  cut7weighed = cut7weighed + weight
- else: continue
- if getattr(mytree2, "")==0:
-  cut8 = cut8 + 1
-  cut8weighed = cut8weighed + weight
- else: continue
- if getattr(mytree2, "mt")>200 and getattr(mytree2, "mt")<380:
-  cut9 = cut9 + 1
-  cut9weighed = cut9weighed + weight
- if getattr(mytree2, "mt")>380:
-  cut10 = cut10 + 1
-  cut10weighed = cut10weighed + weight
+ if getattr(signal_tree[tree_number], "mt")>200 and getattr(signal_tree[tree_number], "mt")<380:
+  signal_counter[9][tree_number+1] = signal_counter[9][tree_number+1] + 1
+  signal_counter_weighed[9][tree_number+1] = signal_counter_weighed[9][tree_number+1] + weight
+ if getattr(signal_tree[tree_number], "mt")>380:
+  signal_counter[10][tree_number+1] = signal_counter[10][tree_number+1] + 1
+  signal_counter_weighed[10][tree_number+1] = signal_counter_weighed[10][tree_number+1] + weight
  else: continue
 
-      
-#start analysis of third tree
-            
-#set to zero the value of the counters
-cutPS = 0 #counter for preselection cut without a weight, so each events count 1
-cutPSweighed = 0 #counter for preselection cut with the weight of each events
-cut1 = 0
-cut1weighed = 0
-cut2 = 0
-cut2weighed = 0
-cut3 = 0
-cut3weighed = 0
-cut4 = 0
-cut4weighed = 0
-cut5 = 0
-cut5weighed = 0
-cut6 = 0
-cut6weighed = 0
-cut7 = 0
-cut7weighed = 0
-cut8 = 0
-cut8weighed = 0
-cut9 = 0
-cut9weighed = 0
-cut10 = 0
-cut10weighed = 0
-
-for w_entry in range(entries3):
- mytree3.GetEvent(w_entry)
- weight = getattr(mytree3, "genWeight")*getattr(mytree3, "pileupWeight")*getattr(mytree3, "eventWeight")*getattr(mytree3, "leptonWeight")*getattr(mytree3, "bTagWeight")
- if (getattr(mytree3, "met")>200 and getattr(mytree3, "nJet30")>=1 and getattr(mytree3, "nLep_base")==1 and getattr(mytree3, "nLep_signal")==1 and getattr(mytree3, "mjj")<200 and getattr(mytree3, "mjj")>50 getattr(mytree3, "mt")>50):
-  cutPS = cutPS + 1
-  cutPSweighed = cutPSweighed + weight
- else: continue
- if getattr(mytree3, "nLep_base")==1 and getattr(mytree3, "nLep_signal")==1:
-  cut1 = cut1 + 1
-  cut1weighed = cut1weighed + weight
- else: continue 
- if getattr(mytree3, "lep1Pt")>25:
-  cut2 = cut2 + 1
-  cut2weighed = cut2weighed + weight
- else: continue
- if getattr(mytree3, "nJet30")==2 or getattr(mytree3, "nJet30")==3:
-  cut3 = cut3 + 1
-  cut3weighed = cut3weighed + weight
- else: continue 
- if getattr(mytree3, "nBJet30_DL1)==0:
-  cut4 = cut4 + 1
-  cut4weighed = cut4weighed + weight
- else: continue
- if getattr(mytree3, "met")>200:
-  cut5 = cut5 + 1
-  cut5weighed = cut5weighed + weight
- else: continue
- if getattr(mytree3, "met_phi")<2.8:
-  cut6 = cut6 + 1
-  cut6weighed = cut6weighed + weight
- else: continue
- if getattr(mytree3, "mjj")<105 and getattr(mytree3, "mjj")>70:
-  cut7 = cut7 + 1
-  cut7weighed = cut7weighed + weight
- else: continue
- if getattr(mytree3, "")==0:
-  cut8 = cut8 + 1
-  cut8weighed = cut8weighed + weight
- else: continue
- if getattr(mytree3, "mt")>200 and getattr(mytree3, "mt")<380:
-  cut9 = cut9 + 1
-  cut9weighed = cut9weighed + weight
- if getattr(mytree3, "mt")>380:
-  cut10 = cut10 + 1
-  cut10weighed = cut10weighed + weight
- else: continue
-            
-print("preselection cut")
-for r in signal_PS_counter:
-            print()
-print("cut flow")
-for t in signal_counter:
-            for c in r:
-             print(c, end = " ")
-            print()
 #end analysis of the signal
 
 #start analysis of the background            
 
 myfile2 = TFile('allTrees_bkg_NoSys.root')
-mytree1bkg = myfile2.Get('diboson_NoSys')
-mytree2bkg = myfile2.Get('multiboson_NoSys')
-mytree3bkg = myfile2.Get('singletop_NoSys')
-mytree4bkg = myfile2.Get('ttbar_NoSys')
-mytree5bkg = myfile2.Get('tth_NoSys')
-mytree6bkg = myfile2.Get('ttv_NoSys')
-mytree7bkg = myfile2.Get('vh_NoSys')
-mytree8bkg = myfile2.Get('wjets_NoSys')
-mytree9bkg = myfile2.Get('zjets_NoSys')
+background_tree = [myfile2.Get('diboson_NoSys'),
+                   myfile2.Get('multiboson_NoSys'),
+                   myfile2.Get('singletop_NoSys'),
+                   myfile2.Get('ttbar_NoSys'),
+                   myfile2.Get('tth_NoSys'),
+                   myfile2.Get('ttv_NoSys'),
+                   myfile2.Get('vh_NoSys'),
+                   myfile2.Get('wjets_NoSys'),
+                   myfile2.Get('zjets_NoSys')]
 
-entries1bkg = mytree1bkg.GetEntriesFast()
-entries2bkg = mytree2bkg.GetEntriesFast()
-entries3bkg = mytree3bkg.GetEntriesFast()
-entries4bkg = mytree4bkg.GetEntriesFast()
-entries5bkg = mytree5bkg.GetEntriesFast()
-entries6bkg = mytree6bkg.GetEntriesFast()
-entries7bkg = mytree7bkg.GetEntriesFast()
-entries8bkg = mytree8bkg.GetEntriesFast()
-entries9bkg = mytree9bkg.GetEntriesFast()
+background_entries = [0,0,0,0,0,0,0,0,0]
+
+for i in range(9):
+ background_entries[i] = background_tree[i].GetEntriesFast()
+
 
 
 
@@ -298,7 +146,7 @@ for a_entry in range(entries1bkg):
   cut3 = cut3 + 1
   cut3weighed = cut3weighed + weight
  else: continue 
- if getattr(mytree1bkg, "nBJet30_DL1)==0:
+ if getattr(mytree1bkg, "nBJet30_DL1")==0:
   cut4 = cut4 + 1
   cut4weighed = cut4weighed + weight
  else: continue
