@@ -71,7 +71,7 @@ for j_entry in range(entries1):
   cut3 = cut3 + 1
   cut3weighed = cut3weighed + weight
  else: continue 
- if getattr(mytree1, "nBJet30_DL1)==0:
+ if getattr(mytree1, "nBJet30_DL1")==0:
   cut4 = cut4 + 1
   cut4weighed = cut4weighed + weight
  else: continue
@@ -146,7 +146,7 @@ for i_entry in range(entries2):
   cut3 = cut3 + 1
   cut3weighed = cut3weighed + weight
  else: continue 
- if getattr(mytree2, "nBJet30_DL1)==0:
+ if getattr(mytree2, "nBJet30_DL1")==0:
   cut4 = cut4 + 1
   cut4weighed = cut4weighed + weight
  else: continue
@@ -220,7 +220,7 @@ for w_entry in range(entries3):
   cut3 = cut3 + 1
   cut3weighed = cut3weighed + weight
  else: continue 
- if getattr(mytree3, "nBJet30_DL1)==0:
+ if getattr(mytree3, "nBJet30_DL1")==0:
   cut4 = cut4 + 1
   cut4weighed = cut4weighed + weight
  else: continue
@@ -302,7 +302,7 @@ for a_entry in range(entries1bkg):
   cut3 = cut3 + 1
   cut3weighed = cut3weighed + weight
  else: continue 
- if getattr(mytree1bkg, "nBJet30_DL1)==0:
+ if getattr(mytree1bkg, "nBJet30_DL1")==0:
   cut4 = cut4 + 1
   cut4weighed = cut4weighed + weight
  else: continue
@@ -349,7 +349,7 @@ for b_entry in range(entries2bkg):
   cut3 = cut3 + 1
   cut3weighed = cut3weighed + weight
  else: continue 
- if getattr(mytree2bkg, "nBJet30_DL1)==0:
+ if getattr(mytree2bkg, "nBJet30_DL1")==0:
   cut4 = cut4 + 1
   cut4weighed = cut4weighed + weight
  else: continue
@@ -396,7 +396,7 @@ for c_entry in range(entries3bkg):
   cut3 = cut3 + 1
   cut3weighed = cut3weighed + weight
  else: continue 
- if getattr(mytree3bkg, "nBJet30_DL1)==0:
+ if getattr(mytree3bkg, "nBJet30_DL1")==0:
   cut4 = cut4 + 1
   cut4weighed = cut4weighed + weight
  else: continue
@@ -443,7 +443,7 @@ for d_entry in range(entries4bkg):
   cut3 = cut3 + 1
   cut3weighed = cut3weighed + weight
  else: continue 
- if getattr(mytree4bkg, "nBJet30_DL1)==0:
+ if getattr(mytree4bkg, "nBJet30_DL1")==0:
   cut4 = cut4 + 1
   cut4weighed = cut4weighed + weight
  else: continue
@@ -490,7 +490,7 @@ for e_entry in range(entries5bkg):
   cut3 = cut3 + 1
   cut3weighed = cut3weighed + weight
  else: continue 
- if getattr(mytree5bkg, "nBJet30_DL1)==0:
+ if getattr(mytree5bkg, "nBJet30_DL1")==0:
   cut4 = cut4 + 1
   cut4weighed = cut4weighed + weight
  else: continue
@@ -537,7 +537,7 @@ for f_entry in range(entries6bkg):
   cut3 = cut3 + 1
   cut3weighed = cut3weighed + weight
  else: continue 
- if getattr(mytree6bkg, "nBJet30_DL1)==0:
+ if getattr(mytree6bkg, "nBJet30_DL1")==0:
   cut4 = cut4 + 1
   cut4weighed = cut4weighed + weight
  else: continue
@@ -584,7 +584,7 @@ for g_entry in range(entries7bkg):
   cut3 = cut3 + 1
   cut3weighed = cut3weighed + weight
  else: continue 
- if getattr(mytree7bkg, "nBJet30_DL1)==0:
+ if getattr(mytree7bkg, "nBJet30_DL1")==0:
   cut4 = cut4 + 1
   cut4weighed = cut4weighed + weight
  else: continue
@@ -631,7 +631,7 @@ for h_entry in range(entries8bkg):
   cut3 = cut3 + 1
   cut3weighed = cut3weighed + weight
  else: continue 
- if getattr(mytree8bkg, "nBJet30_DL1)==0:
+ if getattr(mytree8bkg, "nBJet30_DL1")==0:
   cut4 = cut4 + 1
   cut4weighed = cut4weighed + weight
  else: continue
@@ -678,7 +678,7 @@ for l_entry in range(entries9bkg):
   cut3 = cut3 + 1
   cut3weighed = cut3weighed + weight
  else: continue 
- if getattr(mytree9bkg, "nBJet30_DL1)==0:
+ if getattr(mytree9bkg, "nBJet30_DL1")==0:
   cut4 = cut4 + 1
   cut4weighed = cut4weighed + weight
  else: continue
