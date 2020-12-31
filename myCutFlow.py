@@ -55,7 +55,7 @@ cut10weighed = 0
 for j_entry in range(entries1):
  mytree1.GetEvent(j_entry)
  weight = getattr(mytree1, "genWeight")*getattr(mytree1, "pileupWeight")*getattr(mytree1, "eventWeight")*getattr(mytree1, "leptonWeight")*getattr(mytree1, "bTagWeight")
- if (getattr(mytree1, "met")>200 and getattr(mytree1, "nJet30")>=1 and getattr(mytree1, "nLep_base")==1 and getattr(mytree1, "nLep_signal")==1 and getattr(mytree1, "mjj")<200 and getattr(mytree1, "mjj")>50 getattr(mytree1, "mt")>50):
+ if (getattr(mytree1, "met")>200 and getattr(mytree1, "nJet30")>=1 and getattr(mytree1, "nLep_base")==1 and getattr(mytree1, "nLep_signal")==1 and getattr(mytree1, "mjj")<200 and getattr(mytree1, "mjj")>50 and getattr(mytree1, "mt")>50):
   cutPS = cutPS + 1
   cutPSweighed = cutPSweighed + weight
  else: continue
@@ -130,7 +130,7 @@ cut10weighed = 0
 for i_entry in range(entries2):
  mytree2.GetEvent(i_entry)
  weight = getattr(mytree2, "genWeight")*getattr(mytree2, "pileupWeight")*getattr(mytree2, "eventWeight")*getattr(mytree2, "leptonWeight")*getattr(mytree2, "bTagWeight")
- if (getattr(mytree2, "met")>200 and getattr(mytree2, "nJet30")>=1 and getattr(mytree2, "nLep_base")==1 and getattr(mytree2, "nLep_signal")==1 and getattr(mytree1, "mjj")<200 and getattr(mytree2, "mjj")>50 getattr(mytree2, "mt")>50):
+ if (getattr(mytree2, "met")>200 and getattr(mytree2, "nJet30")>=1 and getattr(mytree2, "nLep_base")==1 and getattr(mytree2, "nLep_signal")==1 and getattr(mytree1, "mjj")<200 and getattr(mytree2, "mjj")>50 and getattr(mytree2, "mt")>50):
   cutPS = cutPS + 1
   cutPSweighed = cutPSweighed + weight
  else: continue
@@ -204,7 +204,7 @@ cut10weighed = 0
 for w_entry in range(entries3):
  mytree3.GetEvent(w_entry)
  weight = getattr(mytree3, "genWeight")*getattr(mytree3, "pileupWeight")*getattr(mytree3, "eventWeight")*getattr(mytree3, "leptonWeight")*getattr(mytree3, "bTagWeight")
- if (getattr(mytree3, "met")>200 and getattr(mytree3, "nJet30")>=1 and getattr(mytree3, "nLep_base")==1 and getattr(mytree3, "nLep_signal")==1 and getattr(mytree3, "mjj")<200 and getattr(mytree3, "mjj")>50 getattr(mytree3, "mt")>50):
+ if (getattr(mytree3, "met")>200 and getattr(mytree3, "nJet30")>=1 and getattr(mytree3, "nLep_base")==1 and getattr(mytree3, "nLep_signal")==1 and getattr(mytree3, "mjj")<200 and getattr(mytree3, "mjj")>50 and getattr(mytree3, "mt")>50):
   cutPS = cutPS + 1
   cutPSweighed = cutPSweighed + weight
  else: continue
@@ -286,7 +286,7 @@ entries9bkg = mytree9bkg.GetEntriesFast()
 for a_entry in range(entries1bkg):
  mytree1bkg.GetEvent(a_entry)
  weight = getattr(mytree1bkg, "genWeight")*getattr(mytree1bkg, "pileupWeight")*getattr(mytree1bkg, "eventWeight")*getattr(mytree1bkg, "leptonWeight")*getattr(mytree1bkg, "bTagWeight")
- if (getattr(mytree1bkg, "met")>200 and getattr(mytree1bkg, "nJet30")>=1 and getattr(mytree1bkg, "nLep_base")==1 and getattr(mytree1bkg, "nLep_signal")==1 and getattr(mytree1bkg, "mjj")<200 and getattr(mytree1bkg, "mjj")>50 getattr(mytree1bkg, "mt")>50):
+ if (getattr(mytree1bkg, "met")>200 and getattr(mytree1bkg, "nJet30")>=1 and getattr(mytree1bkg, "nLep_base")==1 and getattr(mytree1bkg, "nLep_signal")==1 and getattr(mytree1bkg, "mjj")<200 and getattr(mytree1bkg, "mjj")>50 and getattr(mytree1bkg, "mt")>50):
   cutPS = cutPS + 1
   cutPSweighed = cutPSweighed + weight
  else: continue
@@ -333,7 +333,7 @@ for a_entry in range(entries1bkg):
 for b_entry in range(entries2bkg):
  mytree2bkg.GetEvent(b_entry)
  weight = getattr(mytree2bkg, "genWeight")*getattr(mytree2bkg, "pileupWeight")*getattr(mytree2bkg, "eventWeight")*getattr(mytree2bkg, "leptonWeight")*getattr(mytree2bkg, "bTagWeight")
- if (getattr(mytree2bkg, "met")>200 and getattr(mytree2bkg, "nJet30")>=1 and getattr(mytree2bkg, "nLep_base")==1 and getattr(mytree2bkg, "nLep_signal")==1 and getattr(mytree2bkg, "mjj")<200 and getattr(mytree2bkg, "mjj")>50 getattr(mytree2bkg, "mt")>50):
+ if (getattr(mytree2bkg, "met")>200 and getattr(mytree2bkg, "nJet30")>=1 and getattr(mytree2bkg, "nLep_base")==1 and getattr(mytree2bkg, "nLep_signal")==1 and getattr(mytree2bkg, "mjj")<200 and getattr(mytree2bkg, "mjj")>50 and getattr(mytree2bkg, "mt")>50):
   cutPS = cutPS + 1
   cutPSweighed = cutPSweighed + weight
  else: continue
@@ -380,7 +380,7 @@ for b_entry in range(entries2bkg):
 for c_entry in range(entries3bkg):
  mytree3bkg.GetEvent(c_entry)
  weight = getattr(mytree3bkg, "genWeight")*getattr(mytree3bkg, "pileupWeight")*getattr(mytree3bkg, "eventWeight")*getattr(mytree3bkg, "leptonWeight")*getattr(mytree3bkg, "bTagWeight")
- if (getattr(mytree3bkg, "met")>200 and getattr(mytree3bkg, "nJet30")>=1 and getattr(mytree3bkg, "nLep_base")==1 and getattr(mytree3bkg, "nLep_signal")==1 and getattr(mytree3bkg, "mjj")<200 and getattr(mytree3bkg, "mjj")>50 getattr(mytree3bkg, "mt")>50):
+ if (getattr(mytree3bkg, "met")>200 and getattr(mytree3bkg, "nJet30")>=1 and getattr(mytree3bkg, "nLep_base")==1 and getattr(mytree3bkg, "nLep_signal")==1 and getattr(mytree3bkg, "mjj")<200 and getattr(mytree3bkg, "mjj")>50 and getattr(mytree3bkg, "mt")>50):
   cutPS = cutPS + 1
   cutPSweighed = cutPSweighed + weight
  else: continue
@@ -427,7 +427,7 @@ for c_entry in range(entries3bkg):
 for d_entry in range(entries4bkg):
  mytree4bkg.GetEvent(d_entry)
  weight = getattr(mytree4bkg, "genWeight")*getattr(mytree4bkg, "pileupWeight")*getattr(mytree4bkg, "eventWeight")*getattr(mytree4bkg, "leptonWeight")*getattr(mytree4bkg, "bTagWeight")
- if (getattr(mytree4bkg, "met")>200 and getattr(mytree4bkg, "nJet30")>=1 and getattr(mytree4bkg, "nLep_base")==1 and getattr(mytree4bkg, "nLep_signal")==1 and getattr(mytree4bkg, "mjj")<200 and getattr(mytree4bkg, "mjj")>50 getattr(mytree4bkg, "mt")>50):
+ if (getattr(mytree4bkg, "met")>200 and getattr(mytree4bkg, "nJet30")>=1 and getattr(mytree4bkg, "nLep_base")==1 and getattr(mytree4bkg, "nLep_signal")==1 and getattr(mytree4bkg, "mjj")<200 and getattr(mytree4bkg, "mjj")>50 and getattr(mytree4bkg, "mt")>50):
   cutPS = cutPS + 1
   cutPSweighed = cutPSweighed + weight
  else: continue
@@ -474,7 +474,7 @@ for d_entry in range(entries4bkg):
 for e_entry in range(entries5bkg):
  mytree5bkg.GetEvent(e_entry)
  weight = getattr(mytree5bkg, "genWeight")*getattr(mytree5bkg, "pileupWeight")*getattr(mytree5bkg, "eventWeight")*getattr(mytree5bkg, "leptonWeight")*getattr(mytree5bkg, "bTagWeight")
- if (getattr(mytree5bkg, "met")>200 and getattr(mytree5bkg, "nJet30")>=1 and getattr(mytree5bkg, "nLep_base")==1 and getattr(mytree5bkg, "nLep_signal")==1 and getattr(mytree5bkg, "mjj")<200 and getattr(mytree5bkg, "mjj")>50 getattr(mytree5bkg, "mt")>50):
+ if (getattr(mytree5bkg, "met")>200 and getattr(mytree5bkg, "nJet30")>=1 and getattr(mytree5bkg, "nLep_base")==1 and getattr(mytree5bkg, "nLep_signal")==1 and getattr(mytree5bkg, "mjj")<200 and getattr(mytree5bkg, "mjj")>50 and getattr(mytree5bkg, "mt")>50):
   cutPS = cutPS + 1
   cutPSweighed = cutPSweighed + weight
  else: continue
@@ -521,7 +521,7 @@ for e_entry in range(entries5bkg):
 for f_entry in range(entries6bkg):
  mytree6bkg.GetEvent(f_entry)
  weight = getattr(mytree6bkg, "genWeight")*getattr(mytree6bkg, "pileupWeight")*getattr(mytree6bkg, "eventWeight")*getattr(mytree6bkg, "leptonWeight")*getattr(mytree6bkg, "bTagWeight")
- if (getattr(mytree6bkg, "met")>200 and getattr(mytree6bkg, "nJet30")>=1 and getattr(mytree6bkg, "nLep_base")==1 and getattr(mytree6bkg, "nLep_signal")==1 and getattr(mytree6bkg, "mjj")<200 and getattr(mytree6bkg, "mjj")>50 getattr(mytree6bkg, "mt")>50):
+ if (getattr(mytree6bkg, "met")>200 and getattr(mytree6bkg, "nJet30")>=1 and getattr(mytree6bkg, "nLep_base")==1 and getattr(mytree6bkg, "nLep_signal")==1 and getattr(mytree6bkg, "mjj")<200 and getattr(mytree6bkg, "mjj")>50 and getattr(mytree6bkg, "mt")>50):
   cutPS = cutPS + 1
   cutPSweighed = cutPSweighed + weight
  else: continue
@@ -568,7 +568,7 @@ for f_entry in range(entries6bkg):
 for g_entry in range(entries7bkg):
  mytree7bkg.GetEvent(g_entry)
  weight = getattr(mytree7bkg, "genWeight")*getattr(mytree7bkg, "pileupWeight")*getattr(mytree7bkg, "eventWeight")*getattr(mytree7bkg, "leptonWeight")*getattr(mytree7bkg, "bTagWeight")
- if (getattr(mytree7bkg, "met")>200 and getattr(mytree7bkg, "nJet30")>=1 and getattr(mytree7bkg, "nLep_base")==1 and getattr(mytree7bkg, "nLep_signal")==1 and getattr(mytree7bkg, "mjj")<200 and getattr(mytree7bkg, "mjj")>50 getattr(mytree7bkg, "mt")>50):
+ if (getattr(mytree7bkg, "met")>200 and getattr(mytree7bkg, "nJet30")>=1 and getattr(mytree7bkg, "nLep_base")==1 and getattr(mytree7bkg, "nLep_signal")==1 and getattr(mytree7bkg, "mjj")<200 and getattr(mytree7bkg, "mjj")>50 and getattr(mytree7bkg, "mt")>50):
   cutPS = cutPS + 1
   cutPSweighed = cutPSweighed + weight
  else: continue
@@ -615,7 +615,7 @@ for g_entry in range(entries7bkg):
 for h_entry in range(entries8bkg):
  mytree8bkg.GetEvent(h_entry)
  weight = getattr(mytree8bkg, "genWeight")*getattr(mytree8bkg, "pileupWeight")*getattr(mytree8bkg, "eventWeight")*getattr(mytree8bkg, "leptonWeight")*getattr(mytree8bkg, "bTagWeight")
- if (getattr(mytree8bkg, "met")>200 and getattr(mytree8bkg, "nJet30")>=1 and getattr(mytree8bkg, "nLep_base")==1 and getattr(mytree8bkg, "nLep_signal")==1 and getattr(mytree8bkg, "mjj")<200 and getattr(mytree8bkg, "mjj")>50 getattr(mytree8bkg, "mt")>50):
+ if (getattr(mytree8bkg, "met")>200 and getattr(mytree8bkg, "nJet30")>=1 and getattr(mytree8bkg, "nLep_base")==1 and getattr(mytree8bkg, "nLep_signal")==1 and getattr(mytree8bkg, "mjj")<200 and getattr(mytree8bkg, "mjj")>50 and getattr(mytree8bkg, "mt")>50):
   cutPS = cutPS + 1
   cutPSweighed = cutPSweighed + weight
  else: continue
@@ -662,7 +662,7 @@ for h_entry in range(entries8bkg):
 for l_entry in range(entries9bkg):
  mytree9bkg.GetEvent(l_entry)
  weight = getattr(mytree9bkg, "genWeight")*getattr(mytree9bkg, "pileupWeight")*getattr(mytree9bkg, "eventWeight")*getattr(mytree9bkg, "leptonWeight")*getattr(mytree9bkg, "bTagWeight")
- if (getattr(mytree9bkg, "met")>200 and getattr(mytree9bkg, "nJet30")>=1 and getattr(mytree9bkg, "nLep_base")==1 and getattr(mytree9bkg, "nLep_signal")==1 and getattr(mytree9bkg, "mjj")<200 and getattr(mytree9bkg, "mjj")>50 getattr(mytree9bkg, "mt")>50):
+ if (getattr(mytree9bkg, "met")>200 and getattr(mytree9bkg, "nJet30")>=1 and getattr(mytree9bkg, "nLep_base")==1 and getattr(mytree9bkg, "nLep_signal")==1 and getattr(mytree9bkg, "mjj")<200 and getattr(mytree9bkg, "mjj")>50 and getattr(mytree9bkg, "mt")>50):
   cutPS = cutPS + 1
   cutPSweighed = cutPSweighed + weight
  else: continue
