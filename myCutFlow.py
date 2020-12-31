@@ -63,7 +63,7 @@ bkg_counter_weighed = [["Preselection Cut",0,0,0,0,0,0,0,0,0,0,0],["Cut 1 (Nlep=
 
 #start analysis of first tree
 #set to zero the value of the counters
-for tree_number in range(0,2):
+for tree_number in range(0,3):
  for j_entry in range(signal_entries[tree_number]):
   signal_tree[tree_number].GetEvent(j_entry)
   weight = getattr(signal_tree[tree_number], "genWeight")*getattr(signal_tree[tree_number], "pileupWeight")*getattr(signal_tree[tree_number], "eventWeight")*getattr(signal_tree[tree_number], "leptonWeight")*getattr(signal_tree[tree_number], "bTagWeight")
@@ -100,7 +100,7 @@ for tree_number in range(0,2):
    signal_counter_weighed[5][tree_number+1] = signal_counter_weighed[5][tree_number+1] + weight
   else: continue
     
-  if getattr(signal_tree[tree_number], "met_phi")<2.8:
+  if getattr(signal_tree[tree_number], "met_Phi")<2.8:
    signal_counter[6][tree_number+1] = signal_counter[6][tree_number+1] + 1
    signal_counter_weighed[6][tree_number+1] = signal_counter_weighed[6][tree_number+1] + weight
   else: continue
@@ -111,7 +111,7 @@ for tree_number in range(0,2):
    signal_counter_weighed[7][tree_number+1] = signal_counter_weighed[7][tree_number+1] + weight
   else: continue
   
-  if getattr(signal_tree[tree_number], "")==0:
+  if getattr(signal_tree[tree_number], "nFatjets")==0:
    signal_counter[8][tree_number+1] = signal_counter[8][tree_number+1] + 1
    signal_counter_weighed[8][tree_number+1] = signal_counter_weighed[8][tree_number+1] + weight
   else: continue
@@ -156,8 +156,8 @@ for bkg_type in range(0,8)
       and getattr(background_tree[bkg_type], "nJet30")>=1
       and getattr(background_tree[bkg_type], "nLep_base")==1
       and getattr(background_tree[bkg_type], "nLep_signal")==1
-      and getattr(background_tree[bkg_type], "mljj")<200
-      and getattr(background_tree[bkg_type], "mljj")>50
+      and getattr(background_tree[bkg_type], "mjj")<200
+      and getattr(background_tree[bkg_type], "mjj")>50
       and getattr(background_tree[bkg_type], "mt")>50):
     bkg_counter[0][bkg_type+1] = bkg_counter[0][bkg_type+1] + 1
     bkg_counter_weighed[0][bkg_type+1] = bkg_counter_weighed[0][bkg_type+1] + weight
@@ -184,16 +184,16 @@ for bkg_type in range(0,8)
     bkg_counter[5][bkg_type+1] = bkg_counter[5][bkg_type+1] + 1
     bkg_counter_weighed[5][bkg_type+1] = bkg_counter_weighed[5][bkg_type+1] + weight
   else: continue
-  if getattr(background_tree[bkg_type], "met_phi")<2.8:
+  if getattr(background_tree[bkg_type], "met_Phi")<2.8:
     bkg_counter[6][bkg_type+1] = bkg_counter[6][bkg_type+1] + 1
     bkg_counter_weighed[6][bkg_type+1] = bkg_counter_weighed[6][bkg_type+1] + weight
   else: continue
-  if (getattr(background_tree[bkg_type], "mljj")<105
-      and getattr(background_tree[bkg_type], "mljj")>70):
+  if (getattr(background_tree[bkg_type], "mjj")<105
+      and getattr(background_tree[bkg_type], "mjj")>70):
     bkg_counter[7][bkg_type+1] = bkg_counter[7][bkg_type+1] + 1
     bkg_counter_weighed[7][bkg_type+1] = bkg_counter_weighed[7][bkg_type+1] + weight
   else: continue
-  if getattr(background_tree[bkg_type], "")==0:
+  if getattr(background_tree[bkg_type], "nFatjets")==0:
     bkg_counter[8][bkg_type+1] = bkg_counter[8][bkg_type+1] + 1
     bkg_counter_weighed[8][bkg_type+1] = bkg_counter_weighed[8][bkg_type+1] + weight
   else: continue            
@@ -205,4 +205,5 @@ for bkg_type in range(0,8)
     bkg_counter[10][bkg_type+1] = bkg_counter[10][bkg_type+1] + 1
     bkg_counter_weighed[10][bkg_type+1] = bkg_counter_weighed[10][bkg_type+1] + weight
   else: continue
-            
+  
+  
