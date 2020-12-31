@@ -1,7 +1,7 @@
 from ROOT import *
 from array import *
 import os
-import math
+from math import *
 from pprint import pprint
 
 
@@ -9,7 +9,7 @@ from pprint import pprint
 myfile = TFile('allTrees_signal_NoSys.root')
 
 #study three different hypothesis for the masses of supersymmetric particles produced
-signal_tree = [myfile.Get('C1N2_WZ_300_0_NoSys'), myfile.Get('C1N2_WZ_500_200_NoSys'), myfile.Get('C1N2_WZ_500_200_NoSys')]
+signal_tree = [myfile.Get('C1N2_WZ_300_0_NoSys'), myfile.Get('C1N2_WZ_500_100_NoSys'), myfile.Get('C1N2_WZ_1200_200_NoSys')]
 
 #total number of events in each trees
 signal_entries = [0,0,0]
@@ -71,30 +71,33 @@ for tree_number in range(0,3):
       and getattr(signal_tree[tree_number], "nJet30")>=1
       and getattr(signal_tree[tree_number], "nLep_base")==1
       and getattr(signal_tree[tree_number], "nLep_signal")==1
-      and getattr(signal_tree[tree_number], "mljj")<200
-      and getattr(signal_tree[tree_number], "mljj")>50
       and getattr(signal_tree[tree_number], "mt")>50):
    signal_counter[0][tree_number+1] = signal_counter[0][tree_number+1] + 1
    signal_counter_weighed[0][tree_number+1] = signal_counter_weighed[0][tree_number+1] + weight
   else: continue
+    
   if (getattr(signal_tree[tree_number], "nLep_base")==1
       and getattr(signal_tree[tree_number], "nLep_signal")==1):
    signal_counter[1][tree_number+1] = signal_counter[1][tree_number+1] + 1
    signal_counter_weighed[1][tree_number+1] = signal_counter_weighed[1][tree_number+1] + weight
   else: continue
+    
   if getattr(signal_tree[tree_number], "lep1Pt")>25:
    signal_counter[2][tree_number+1] = signal_counter[2][tree_number+1] + 1
    signal_counter_weighed[2][tree_number+1] = signal_counter_weighed[2][tree_number+1] + weight
   else: continue
+    
   if (getattr(signal_tree[tree_number], "nJet30")==2
       or getattr(signal_tree[tree_number], "nJet30")==3):
    signal_counter[3][tree_number+1] = signal_counter[3][tree_number+1] + 1
    signal_counter_weighed[3][tree_number+1] = signal_counter_weighed[3][tree_number+1] + weight
-  else: continue 
+  else: continue
+    
   if getattr(signal_tree[tree_number], "nBJet30_DL1")==0:
    signal_counter[4][tree_number+1] = signal_counter[4][tree_number+1] + 1
    signal_counter_weighed[4][tree_number+1] = signal_counter_weighed[4][tree_number+1] + weight
   else: continue
+    
   if getattr(signal_tree[tree_number], "met")>200:
    signal_counter[5][tree_number+1] = signal_counter[5][tree_number+1] + 1
    signal_counter_weighed[5][tree_number+1] = signal_counter_weighed[5][tree_number+1] + weight
@@ -105,8 +108,15 @@ for tree_number in range(0,3):
    signal_counter_weighed[6][tree_number+1] = signal_counter_weighed[6][tree_number+1] + weight
   else: continue
   
-  if (getattr(signal_tree[tree_number], "mljj")<105
-      and getattr(signal_tree[tree_number], "mljj")>70):
+  jet1_pt = getattr(signal_tree[tree_number], "jet1Pt")
+  jet1_Eta = getattr(signal_tree[tree_number], "jet1Eta")
+  jet1_Phi = getattr(signal_tree[tree_number], "jet1Phi")
+  jet2_pt = getattr(signal_tree[tree_number], "jet2Pt")
+  jet2_Eta = getattr(signal_tree[tree_number], "jet2Eta")
+  jet2_Phi = getattr(signal_tree[tree_number], "jet2Phi")
+  mjj = sqrt(2*jet1_pt*jet2_pt(cosh(jet1_Eta-jet2_Eta)-cos(jet1_Phi-jet2_Phi)))
+  if (mjj<105
+      and mjj>70):
    signal_counter[7][tree_number+1] = signal_counter[7][tree_number+1] + 1
    signal_counter_weighed[7][tree_number+1] = signal_counter_weighed[7][tree_number+1] + weight
   else: continue
@@ -167,40 +177,56 @@ for bkg_type in range(0,8)
     bkg_counter[1][bkg_type+1] = bkg_counter[1][bkg_type+1] + 1
     bkg_counter_weighed[1][bkg_type+1] = bkg_counter_weighed[1][bkg_type+1] + weight
   else: continue
+    
   if getattr(background_tree[bkg_type], "lep1Pt")>25:
     bkg_counter[2][bkg_type+1] = bkg_counter[2][bkg_type+1] + 1
     bkg_counter_weighed[2][bkg_type+1] = bkg_counter_weighed[2][bkg_type+1] + weight
   else: continue
+    
   if (getattr(background_tree[bkg_type], "nJet30")==2
       or getattr(background_tree[bkg_type], "nJet30")==3):
    bkg_counter[3][bkg_type+1] = bkg_counter[3][bkg_type+1] + 1
    bkg_counter_weighed[3][bkg_type+1] = bkg_counter_weighed[3][bkg_type+1] + weight 
-  else: continue 
+  else: continue
+    
   if getattr(background_tree[bkg_type], "nBJet30_DL1")==0:
     bkg_counter[4][bkg_type+1] = bkg_counter[4][bkg_type+1] + 1
     bkg_counter_weighed[4][bkg_type+1] = bkg_counter_weighed[4][bkg_type+1] + weight
   else: continue
+    
   if getattr(background_tree[bkg_type], "met")>200:
     bkg_counter[5][bkg_type+1] = bkg_counter[5][bkg_type+1] + 1
     bkg_counter_weighed[5][bkg_type+1] = bkg_counter_weighed[5][bkg_type+1] + weight
   else: continue
+    
   if getattr(background_tree[bkg_type], "met_Phi")<2.8:
     bkg_counter[6][bkg_type+1] = bkg_counter[6][bkg_type+1] + 1
     bkg_counter_weighed[6][bkg_type+1] = bkg_counter_weighed[6][bkg_type+1] + weight
   else: continue
-  if (getattr(background_tree[bkg_type], "mjj")<105
-      and getattr(background_tree[bkg_type], "mjj")>70):
+    
+  jet1_pt = getattr(background_tree[bkg_type], "jet1Pt")
+  jet1_Eta = getattr(background_tree[bkg_type], "jet1Eta")
+  jet1_Phi = getattr(background_tree[bkg_type], "jet1Phi")
+  jet2_pt = getattr(background_tree[bkg_type], "jet2Pt")
+  jet2_Eta = getattr(background_tree[bkg_type], "jet2Eta")
+  jet2_Phi = getattr(background_tree[bkg_type], "jet2Phi")
+  mjj = sqrt(2*jet1_pt*jet2_pt(cosh(jet1_Eta-jet2_Eta)-cos(jet1_Phi-jet2_Phi)))
+  if (mjj<105
+      and mjj>70):
     bkg_counter[7][bkg_type+1] = bkg_counter[7][bkg_type+1] + 1
     bkg_counter_weighed[7][bkg_type+1] = bkg_counter_weighed[7][bkg_type+1] + weight
   else: continue
+    
   if getattr(background_tree[bkg_type], "nFatjets")==0:
     bkg_counter[8][bkg_type+1] = bkg_counter[8][bkg_type+1] + 1
     bkg_counter_weighed[8][bkg_type+1] = bkg_counter_weighed[8][bkg_type+1] + weight
-  else: continue            
+  else: continue
+    
   if (getattr(background_tree[bkg_type], "mt")>200
       and getattr(background_tree[bkg_type], "mt")<380):
     bkg_counter[9][bkg_type+1] = bkg_counter[9][bkg_type+1] + 1
     bkg_counter_weighed[9][bkg_type+1] = bkg_counter_weighed[9][bkg_type+1] + weight
+    
   if getattr(background_tree[bkg_type], "mt")>380:
     bkg_counter[10][bkg_type+1] = bkg_counter[10][bkg_type+1] + 1
     bkg_counter_weighed[10][bkg_type+1] = bkg_counter_weighed[10][bkg_type+1] + weight
