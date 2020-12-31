@@ -71,9 +71,9 @@ for tree_number in range(0,2):
       and getattr(signal_tree[tree_number], "nJet30")>=1
       and getattr(signal_tree[tree_number], "nLep_base")==1
       and getattr(signal_tree[tree_number], "nLep_signal")==1
-      and getattr(signal_tree[tree_number], "mjj")<200
-      and getattr(signal_tree[tree_number], "mjj")>50
-      getattr(signal_tree[tree_number], "mt")>50):
+      and getattr(signal_tree[tree_number], "mljj")<200
+      and getattr(signal_tree[tree_number], "mljj")>50
+      and getattr(signal_tree[tree_number], "mt")>50):
    signal_counter[0][tree_number+1] = signal_counter[0][tree_number+1] + 1
    signal_counter_weighed[0][tree_number+1] = signal_counter_weighed[0][tree_number+1] + weight
   else: continue
@@ -105,8 +105,8 @@ for tree_number in range(0,2):
    signal_counter_weighed[6][tree_number+1] = signal_counter_weighed[6][tree_number+1] + weight
   else: continue
   
-  if (getattr(signal_tree[tree_number], "mjj")<105
-      and getattr(signal_tree[tree_number], "mjj")>70):
+  if (getattr(signal_tree[tree_number], "mljj")<105
+      and getattr(signal_tree[tree_number], "mljj")>70):
    signal_counter[7][tree_number+1] = signal_counter[7][tree_number+1] + 1
    signal_counter_weighed[7][tree_number+1] = signal_counter_weighed[7][tree_number+1] + weight
   else: continue
@@ -156,8 +156,8 @@ for bkg_type in range(0,8)
       and getattr(background_tree[bkg_type], "nJet30")>=1
       and getattr(background_tree[bkg_type], "nLep_base")==1
       and getattr(background_tree[bkg_type], "nLep_signal")==1
-      and getattr(background_tree[bkg_type], "mjj")<200
-      and getattr(background_tree[bkg_type], "mjj")>50
+      and getattr(background_tree[bkg_type], "mljj")<200
+      and getattr(background_tree[bkg_type], "mljj")>50
       and getattr(background_tree[bkg_type], "mt")>50):
     bkg_counter[0][bkg_type+1] = bkg_counter[0][bkg_type+1] + 1
     bkg_counter_weighed[0][bkg_type+1] = bkg_counter_weighed[0][bkg_type+1] + weight
@@ -188,8 +188,8 @@ for bkg_type in range(0,8)
     bkg_counter[6][bkg_type+1] = bkg_counter[6][bkg_type+1] + 1
     bkg_counter_weighed[6][bkg_type+1] = bkg_counter_weighed[6][bkg_type+1] + weight
   else: continue
-  if (getattr(background_tree[bkg_type], "mjj")<105
-      and getattr(background_tree[bkg_type], "mjj")>70):
+  if (getattr(background_tree[bkg_type], "mljj")<105
+      and getattr(background_tree[bkg_type], "mljj")>70):
     bkg_counter[7][bkg_type+1] = bkg_counter[7][bkg_type+1] + 1
     bkg_counter_weighed[7][bkg_type+1] = bkg_counter_weighed[7][bkg_type+1] + weight
   else: continue
