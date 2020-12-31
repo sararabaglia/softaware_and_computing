@@ -10,7 +10,7 @@ myfile = TFile('allTrees_signal_NoSys.root')
 
 #study three different hypothesis for the masses of supersymmetric particles produced
 mytree1 = myfile.Get('C1N2_WZ_300_0_NoSys')
-mytree2 = myfile.Get('C1N2_WZ_500_200_NoSys')
+mytree2 = myfile.Get('C1N2_WZ_500_100_NoSys')
 mytree3 = myfile.Get('C1N2_WZ_1200_200_NoSys')
 
 #total number of events in each trees
