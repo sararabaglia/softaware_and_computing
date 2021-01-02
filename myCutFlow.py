@@ -229,5 +229,21 @@ for bkg_type in range(0,9):
     bkg_counter[10][bkg_type+1] = bkg_counter[10][bkg_type+1] + 1
     bkg_counter_weighed[10][bkg_type+1] = bkg_counter_weighed[10][bkg_type+1] + weight
   else: continue
-  
-  
+
+for a in signal_counter:
+  for b in a:
+    print(b)
+
+for c in signal_counter_weighed:
+  for d in c:
+    print(d)
+
+for e in bkg_counter:
+  for f in e:
+    print(f)
+
+for g in bkg_counter_weighed:
+  for h in g:
+    print(h)
+
+
