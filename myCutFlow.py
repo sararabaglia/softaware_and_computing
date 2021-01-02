@@ -17,6 +17,8 @@ signal_entries[0] = signal_tree[0].GetEntries()
 signal_entries[1] = signal_tree[1].GetEntries()
 signal_entries[2] = signal_tree[2].GetEntries()
 
+signal_name = ["WZ (300,0)", "WZ (500,100)", "WZ (1200,200)"]
+
 signal_counter = [["Preselection Cut",0,0,0],["Cut 1 (Nlep=1)",0,0,0],
                   ["Cut 2 (pT>25)",0,0,0],
                   ["Cut 3 (Njet(pT>30)=2-3)",0,0,0],
@@ -156,7 +158,7 @@ background_entries = [0,0,0,0,0,0,0,0,0]
 for i in range(0,8):
  background_entries[i] = background_tree[i].GetEntriesFast()
 
-
+background_name = ["Diboson", "Multiboson", "Single-top", "ttbar", "ttbarH", "ttbarV", "vh", "Wjets", "Zjets"]
 
 for bkg_type in range(0,9):
  for i_entry in range(background_entries[bkg_type]):
