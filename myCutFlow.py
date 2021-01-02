@@ -114,7 +114,7 @@ for tree_number in range(0,3):
   jet2_pt = getattr(signal_tree[tree_number], "jet2Pt")
   jet2_Eta = getattr(signal_tree[tree_number], "jet2Eta")
   jet2_Phi = getattr(signal_tree[tree_number], "jet2Phi")
-  mjj = sqrt(2*jet1_pt*jet2_pt(cosh(jet1_Eta-jet2_Eta)-cos(jet1_Phi-jet2_Phi)))
+  mjj = sqrt(2*jet1_pt*jet2_pt*(cosh(jet1_Eta-jet2_Eta)-cos(jet1_Phi-jet2_Phi)))
   if (mjj<105
       and mjj>70):
    signal_counter[7][tree_number+1] = signal_counter[7][tree_number+1] + 1
@@ -158,7 +158,7 @@ for i in range(0,8):
 
 
 
-for bkg_type in range(0,8)
+for bkg_type in range(0,9):
  for i_entry in range(background_entries[bkg_type]):
   background_tree[bkg_type].GetEvent(i_entry)
   weight = getattr(background_tree[bkg_type], "genWeight")*getattr(background_tree[bkg_type], "pileupWeight")*getattr(background_tree[bkg_type], "eventWeight")*getattr(background_tree[bkg_type], "leptonWeight")*getattr(background_tree[bkg_type], "bTagWeight")
@@ -166,8 +166,6 @@ for bkg_type in range(0,8)
       and getattr(background_tree[bkg_type], "nJet30")>=1
       and getattr(background_tree[bkg_type], "nLep_base")==1
       and getattr(background_tree[bkg_type], "nLep_signal")==1
-      and getattr(background_tree[bkg_type], "mjj")<200
-      and getattr(background_tree[bkg_type], "mjj")>50
       and getattr(background_tree[bkg_type], "mt")>50):
     bkg_counter[0][bkg_type+1] = bkg_counter[0][bkg_type+1] + 1
     bkg_counter_weighed[0][bkg_type+1] = bkg_counter_weighed[0][bkg_type+1] + weight
@@ -210,7 +208,7 @@ for bkg_type in range(0,8)
   jet2_pt = getattr(background_tree[bkg_type], "jet2Pt")
   jet2_Eta = getattr(background_tree[bkg_type], "jet2Eta")
   jet2_Phi = getattr(background_tree[bkg_type], "jet2Phi")
-  mjj = sqrt(2*jet1_pt*jet2_pt(cosh(jet1_Eta-jet2_Eta)-cos(jet1_Phi-jet2_Phi)))
+  mjj = sqrt(2*jet1_pt*jet2_pt*(cosh(jet1_Eta-jet2_Eta)-cos(jet1_Phi-jet2_Phi)))
   if (mjj<105
       and mjj>70):
     bkg_counter[7][bkg_type+1] = bkg_counter[7][bkg_type+1] + 1
