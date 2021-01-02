@@ -232,20 +232,28 @@ for bkg_type in range(0,9):
     bkg_counter_weighed[10][bkg_type+1] = bkg_counter_weighed[10][bkg_type+1] + weight
   else: continue
 
+f = open("cut_result", "w", "a")
+f.write("               ", signal_name[0], " ", signal_name[1], " ", signal_name[2], '\n')
+    
 for a in signal_counter:
   for b in a:
-    print(b)
+    f.write(b, " ")
+  f.write('\n')
 
 for c in signal_counter_weighed:
   for d in c:
-    print(d)
+    f.write(c, " ")
+  f.write('\n')
 
 for e in bkg_counter:
-  for f in e:
-    print(f)
+  for m in e:
+    f.write(m, " ")
+  f.write('\n')
 
 for g in bkg_counter_weighed:
   for h in g:
-    print(h)
+    f.write(h, " ")
+  f.write('\n')
 
+f.close()
 
