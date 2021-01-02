@@ -19,7 +19,8 @@ signal_entries[2] = signal_tree[2].GetEntries()
 
 signal_name = ["WZ (300,0)", "WZ (500,100)", "WZ (1200,200)"]
 
-signal_counter = [["Preselection Cut",0,0,0],["Cut 1 (Nlep=1)",0,0,0],
+signal_counter = [["Preselection Cut",0,0,0],
+                  ["Cut 1 (Nlep=1)",0,0,0],
                   ["Cut 2 (pT>25)",0,0,0],
                   ["Cut 3 (Njet(pT>30)=2-3)",0,0,0],
                   ["Cut 4 (Nb-jet(pT>30)=0)",0,0,0],
@@ -30,29 +31,32 @@ signal_counter = [["Preselection Cut",0,0,0],["Cut 1 (Nlep=1)",0,0,0],
                   ["Cut 9a (200<mT<380)",0,0,0],
                   ["Cut 9b (mT>380)",0,0,0]]
 
-signal_counter_weighed = [["Preselection Cut",0,0,0],["Cut 1 (Nlep=1)",0,0,0],
-                  ["Cut 2 (pT>25)",0,0,0],
-                  ["Cut 3 (Njet(pT>30)=2-3)",0,0,0],
-                  ["Cut 4 (Nb-jet(pT>30)=0)",0,0,0],
-                  ["Cut 5 (MET>200)",0,0,0],
-                  ["Cut 6 (Delta_phi(l,met)<2.8)",0,0,0],
-                  ["Cut 7 (70<mjj<105)",0,0,0],
-                  ["Cut 8 (Nlarge-Rjet=0)",0,0,0],
-                  ["Cut 9a (200<mT<380)",0,0,0],
-                  ["Cut 9b (mT>380)",0,0,0]]
+signal_counter_weighed = [["Preselection Cut",0,0,0],
+                          ["Cut 1 (Nlep=1)",0,0,0],
+                          ["Cut 2 (pT>25)",0,0,0],
+                          ["Cut 3 (Njet(pT>30)=2-3)",0,0,0],
+                          ["Cut 4 (Nb-jet(pT>30)=0)",0,0,0],
+                          ["Cut 5 (MET>200)",0,0,0],
+                          ["Cut 6 (Delta_phi(l,met)<2.8)",0,0,0],
+                          ["Cut 7 (70<mjj<105)",0,0,0],
+                          ["Cut 8 (Nlarge-Rjet=0)",0,0,0],
+                          ["Cut 9a (200<mT<380)",0,0,0],
+                          ["Cut 9b (mT>380)",0,0,0]]
 
-bkg_counter = [["Preselection Cut",0,0,0,0,0,0,0,0,0,0,0],["Cut 1 (Nlep=1)",0,0,0,0,0,0,0,0,0],
-                  ["Cut 2 (pT>25)",0,0,0,0,0,0,0,0,0],
-                  ["Cut 3 (Njet(pT>30)=2-3)",0,0,0,0,0,0,0,0,0],
-                  ["Cut 4 (Nb-jet(pT>30)=0)",0,0,0,0,0,0,0,0,0],
-                  ["Cut 5 (MET>200)",0,0,0,0,0,0,0,0,0],
-                  ["Cut 6 (Delta_phi(l,met)<2.8)",0,0,0,0,0,0,0,0,0],
-                  ["Cut 7 (70<mjj<105)",0,0,0,0,0,0,0,0,0],
-                  ["Cut 8 (Nlarge-Rjet=0)",0,0,0,0,0,0,0,0,0],
-                  ["Cut 9a (200<mT<380)",0,0,0,0,0,0,0,0,0],
-                  ["Cut 9b (mT>380)",0,0,0,0,0,0,0,0]]
+bkg_counter = [["Preselection Cut",0,0,0,0,0,0,0,0,0,0,0],
+               ["Cut 1 (Nlep=1)",0,0,0,0,0,0,0,0,0],
+               ["Cut 2 (pT>25)",0,0,0,0,0,0,0,0,0],
+               ["Cut 3 (Njet(pT>30)=2-3)",0,0,0,0,0,0,0,0,0],
+               ["Cut 4 (Nb-jet(pT>30)=0)",0,0,0,0,0,0,0,0,0],
+               ["Cut 5 (MET>200)",0,0,0,0,0,0,0,0,0],
+               ["Cut 6 (Delta_phi(l,met)<2.8)",0,0,0,0,0,0,0,0,0],
+               ["Cut 7 (70<mjj<105)",0,0,0,0,0,0,0,0,0],
+               ["Cut 8 (Nlarge-Rjet=0)",0,0,0,0,0,0,0,0,0],
+               ["Cut 9a (200<mT<380)",0,0,0,0,0,0,0,0,0],
+               ["Cut 9b (mT>380)",0,0,0,0,0,0,0,0]]
 
-bkg_counter_weighed = [["Preselection Cut",0,0,0,0,0,0,0,0,0,0,0],["Cut 1 (Nlep=1)",0,0,0,0,0,0,0,0,0],
+bkg_counter_weighed = [["Preselection Cut",0,0,0,0,0,0,0,0,0,0,0],
+                       ["Cut 1 (Nlep=1)",0,0,0,0,0,0,0,0,0],
                   ["Cut 2 (pT>25)",0,0,0,0,0,0,0,0,0],
                   ["Cut 3 (Njet(pT>30)=2-3)",0,0,0,0,0,0,0,0,0],
                   ["Cut 4 (Nb-jet(pT>30)=0)",0,0,0,0,0,0,0,0,0],
@@ -232,27 +236,36 @@ for bkg_type in range(0,9):
     bkg_counter_weighed[10][bkg_type+1] = bkg_counter_weighed[10][bkg_type+1] + weight
   else: continue
 
-f = open("cut_result", "w", "a")
-f.write("               ", signal_name[0], " ", signal_name[1], " ", signal_name[2], '\n')
-    
+f = open("cut_result.txt", "w", "a")
+f.write("                   ")
+for q in signal_name:
+  f.write(q)
+  f.("  ")
+
+f.write('\n')
+
 for a in signal_counter:
   for b in a:
-    f.write(b, " ")
+    f.write(str(b))
+    f.write(" ")
   f.write('\n')
 
 for c in signal_counter_weighed:
   for d in c:
-    f.write(c, " ")
+    f.write(str(c))
+    f.write(" ")
   f.write('\n')
 
 for e in bkg_counter:
   for m in e:
-    f.write(m, " ")
+    f.write(str(m))
+    f.write(" ")
   f.write('\n')
 
 for g in bkg_counter_weighed:
   for h in g:
-    f.write(h, " ")
+    f.write(str(h))
+    f.write(" ")
   f.write('\n')
 
 f.close()
