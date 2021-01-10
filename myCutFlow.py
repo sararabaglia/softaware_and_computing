@@ -8,17 +8,42 @@ from pprint import pprint
 #take the file root for the signal
 myfile = TFile('allTrees_signal_NoSys.root')
 
-#study three different hypothesis for the masses of supersymmetric particles produced
+#take the file root for the background
+myfile2 = TFile('allTrees_bkg_NoSys.root')
+
+#study three different hypothesis for the masses of supersymmetric particles produced, each hypothesis is contained inside a tree of the input Roor file
 signal_tree = [myfile.Get('C1N2_WZ_300_0_NoSys'), myfile.Get('C1N2_WZ_500_100_NoSys'), myfile.Get('C1N2_WZ_1200_200_NoSys')]
 
-#total number of events in each trees
+#in the root file for the background there are eleven different type of background, one in each tree
+background_tree = [myfile2.Get('diboson_NoSys'),
+                   myfile2.Get('multiboson_NoSys'),
+                   myfile2.Get('singletop_NoSys'),
+                   myfile2.Get('ttbar_NoSys'),
+                   myfile2.Get('tth_NoSys'),
+                   myfile2.Get('ttv_NoSys'),
+                   myfile2.Get('vh_NoSys'),
+                   myfile2.Get('wjets_NoSys'),
+                   myfile2.Get('zjets_NoSys')]
+
+#total number of events in each signal tree
 signal_entries = [0,0,0]
 signal_entries[0] = signal_tree[0].GetEntries()
 signal_entries[1] = signal_tree[1].GetEntries()
 signal_entries[2] = signal_tree[2].GetEntries()
 
-signal_name = ["WZ (300,0)", "WZ (500,100)", "WZ (1200,200)"]
+#total number of events in each background trees
+background_entries = [0,0,0,0,0,0,0,0,0]
 
+for i in range(0,8):
+ background_entries[i] = background_tree[i].GetEntriesFast()
+
+#definition of signal and background type
+signal_name = ["WZ (300,0)", "WZ (500,100)", "WZ (1200,200)"]
+background_name = ["Diboson", "Multiboson", "Single-top", "ttbar", "ttbarH", "ttbarV", "vh", "Wjets", "Zjets"]
+
+
+#set to zero the four matricies of counter, each element represents the counter after each cut. 
+#inside each elements there is the name of the cut and after that there are three number that are the counter for each signal trees that I consider for my analysis
 signal_counter = [["Preselection Cut",0,0,0],
                   ["Cut 1 (Nlep=1)",0,0,0],
                   ["Cut 2 (pT>25)",0,0,0],
@@ -31,6 +56,7 @@ signal_counter = [["Preselection Cut",0,0,0],
                   ["Cut 9a (200<mT<380)",0,0,0],
                   ["Cut 9b (mT>380)",0,0,0]]
 
+#counter for the signal tree with a weight for each events
 signal_counter_weighed = [["Preselection Cut",0,0,0],
                           ["Cut 1 (Nlep=1)",0,0,0],
                           ["Cut 2 (pT>25)",0,0,0],
@@ -43,7 +69,8 @@ signal_counter_weighed = [["Preselection Cut",0,0,0],
                           ["Cut 9a (200<mT<380)",0,0,0],
                           ["Cut 9b (mT>380)",0,0,0]]
 
-bkg_counter = [["Preselection Cut",0,0,0,0,0,0,0,0,0,0,0],
+#inside each elements there is the name of the cut and after that there are nine number that are the counter for each background trees that I consider for my analysis
+bkg_counter = [["Preselection Cut",0,0,0,0,0,0,0,0,0],
                ["Cut 1 (Nlep=1)",0,0,0,0,0,0,0,0,0],
                ["Cut 2 (pT>25)",0,0,0,0,0,0,0,0,0],
                ["Cut 3 (Njet(pT>30)=2-3)",0,0,0,0,0,0,0,0,0],
@@ -53,22 +80,24 @@ bkg_counter = [["Preselection Cut",0,0,0,0,0,0,0,0,0,0,0],
                ["Cut 7 (70<mjj<105)",0,0,0,0,0,0,0,0,0],
                ["Cut 8 (Nlarge-Rjet=0)",0,0,0,0,0,0,0,0,0],
                ["Cut 9a (200<mT<380)",0,0,0,0,0,0,0,0,0],
-               ["Cut 9b (mT>380)",0,0,0,0,0,0,0,0]]
+               ["Cut 9b (mT>380)",0,0,0,0,0,0,0,0,0]]
 
-bkg_counter_weighed = [["Preselection Cut",0,0,0,0,0,0,0,0,0,0,0],
+#counter for the background tree with a weight for each events
+bkg_counter_weighed = [["Preselection Cut",0,0,0,0,0,0,0,0,0],
                        ["Cut 1 (Nlep=1)",0,0,0,0,0,0,0,0,0],
-                  ["Cut 2 (pT>25)",0,0,0,0,0,0,0,0,0],
-                  ["Cut 3 (Njet(pT>30)=2-3)",0,0,0,0,0,0,0,0,0],
-                  ["Cut 4 (Nb-jet(pT>30)=0)",0,0,0,0,0,0,0,0,0],
-                  ["Cut 5 (MET>200)",0,0,0,0,0,0,0,0,0],
-                  ["Cut 6 (Delta_phi(l,met)<2.8)",0,0,0,0,0,0,0,0,0],
-                  ["Cut 7 (70<mjj<105)",0,0,0,0,0,0,0,0,0],
-                  ["Cut 8 (Nlarge-Rjet=0)",0,0,0,0,0,0,0,0,0],
-                  ["Cut 9a (200<mT<380)",0,0,0,0,0,0,0,0,0],
-                  ["Cut 9b (mT>380)",0,0,0,0,0,0,0,0]]
+                       ["Cut 2 (pT>25)",0,0,0,0,0,0,0,0,0],
+                       ["Cut 3 (Njet(pT>30)=2-3)",0,0,0,0,0,0,0,0,0],
+                       ["Cut 4 (Nb-jet(pT>30)=0)",0,0,0,0,0,0,0,0,0],
+                       ["Cut 5 (MET>200)",0,0,0,0,0,0,0,0,0],
+                       ["Cut 6 (Delta_phi(l,met)<2.8)",0,0,0,0,0,0,0,0,0],
+                       ["Cut 7 (70<mjj<105)",0,0,0,0,0,0,0,0,0],
+                       ["Cut 8 (Nlarge-Rjet=0)",0,0,0,0,0,0,0,0,0],
+                       ["Cut 9a (200<mT<380)",0,0,0,0,0,0,0,0,0],
+                       ["Cut 9b (mT>380)",0,0,0,0,0,0,0,0,0]]
 
-#start analysis of first tree
-#set to zero the value of the counters
+
+#start cut flow for signal
+
 for tree_number in range(0,3):
  for j_entry in range(signal_entries[tree_number]):
   signal_tree[tree_number].GetEvent(j_entry)
@@ -142,27 +171,9 @@ for tree_number in range(0,3):
    signal_counter_weighed[10][tree_number+1] = signal_counter_weighed[10][tree_number+1] + weight
   else: continue
 
-#end analysis of the signal
+#end cut flow for the signal
 
-#start analysis of the background            
-
-myfile2 = TFile('allTrees_bkg_NoSys.root')
-background_tree = [myfile2.Get('diboson_NoSys'),
-                   myfile2.Get('multiboson_NoSys'),
-                   myfile2.Get('singletop_NoSys'),
-                   myfile2.Get('ttbar_NoSys'),
-                   myfile2.Get('tth_NoSys'),
-                   myfile2.Get('ttv_NoSys'),
-                   myfile2.Get('vh_NoSys'),
-                   myfile2.Get('wjets_NoSys'),
-                   myfile2.Get('zjets_NoSys')]
-
-background_entries = [0,0,0,0,0,0,0,0,0]
-
-for i in range(0,8):
- background_entries[i] = background_tree[i].GetEntriesFast()
-
-background_name = ["Diboson", "Multiboson", "Single-top", "ttbar", "ttbarH", "ttbarV", "vh", "Wjets", "Zjets"]
+#start cut flow for the background
 
 for bkg_type in range(0,9):
  for i_entry in range(background_entries[bkg_type]):
@@ -207,7 +218,7 @@ for bkg_type in range(0,9):
     bkg_counter[6][bkg_type+1] = bkg_counter[6][bkg_type+1] + 1
     bkg_counter_weighed[6][bkg_type+1] = bkg_counter_weighed[6][bkg_type+1] + weight
   else: continue
-    
+  
   jet1_pt = getattr(background_tree[bkg_type], "jet1Pt")
   jet1_Eta = getattr(background_tree[bkg_type], "jet1Eta")
   jet1_Phi = getattr(background_tree[bkg_type], "jet1Phi")
@@ -236,6 +247,21 @@ for bkg_type in range(0,9):
     bkg_counter_weighed[10][bkg_type+1] = bkg_counter_weighed[10][bkg_type+1] + weight
   else: continue
 
+#end cut flow for the background
+
+#computation of signal over the background (S/B)
+total_bkg = bkg_counter[10][1]+bkg_counter[10][2]+bkg_counter[10][3]+bkg_counter[10][4]+bkg_counter[10][5]+bkg_counter[10][6]+bkg_counter[10][7]+bkg_counter[10][8]+bkg_counter[10][9]
+total_weighed_bkg = bkg_counter_weighed[10][1]+bkg_counter_weighed[10][2]+bkg_counter_weighed[10][3]+bkg_counter_weighed[10][4]+bkg_counter_weighed[10][5]+bkg_counter_weighed[10][6]+bkg_counter_weighed[10][7]+bkg_counter_weighed[10][8]+bkg_counter_weighed[10][9]
+signal_over_bkg = [0,0,0]
+signal_over_bkg_weighed = [0,0,0]
+
+for z in range (0,3):
+  signal_over_bkg[z] = signal_counter[z+1]/total_bkg
+
+for x in range (0,3):
+  signal_over_bkg_weighed[x] = signal_counter_weighed[x+1]/total_weighed_bkg
+
+#print the result of the cut flow in a txt file
 f = open("cut_result.txt", "w", "a")
 f.write("                   ")
 for q in signal_name:
@@ -267,6 +293,22 @@ for g in bkg_counter_weighed:
     f.write(str(h))
     f.write(" ")
   f.write('\n')
+
+for s in signal_over_bkg:
+  i = 1
+  f.write("S/B_")
+  f.Write(str(i))
+  f.write(" = ")
+  f.print(str(s))
+  i = i + 1
+
+for s in signal_over_bkg:
+  i = 1
+  f.write("S/B_")
+  f.Write(str(i))
+  f.write(" = ")
+  f.print(str(s))
+  i = i + 1
 
 f.close()
 
