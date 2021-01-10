@@ -18,9 +18,6 @@ entries1 = mytree1.GetEntries()
 entries2 = mytree2.GetEntries()
 entries3 = mytree3.GetEntries()
 
-print(entries1)
-print(entries2)
-print(entries3)
 
 signal_PS_counter = [[0],[0],[0]]
 signal_counter = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]]
