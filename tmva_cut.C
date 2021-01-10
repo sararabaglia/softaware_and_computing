@@ -18,13 +18,10 @@
 #include "TMVA/TMVAGui.h"
 
 
-void a() {
+void tmva_cut() {
     
     auto inputFile_signal = TFile::Open("allTrees_signal_NoSys.root");
     auto inputFile_bkg = TFile::Open("allTrees_bkg_NoSys.root");
-    
-    //Length,Width,Size,Conc,Conc1,Asym,M3Long,M3Trans,Alpha,Dist;
-    //TFile* outputFile = TFile::Open("TMVAOutputCV.root", "RECREATE");
     
     auto outputFile = TFile::Open( "TMVAOutputCV.root", "RECREATE" );
 
@@ -41,15 +38,39 @@ void a() {
     loader.AddVariable("met_Phi");
     loader.AddVariable("nFatjets");
     loader.AddVariable("mt");
-//loader.AddVariable("Dist");
     
     TTree* tsignal;
-    TTree* tbackground;
+    TTree* tbackground_1;
+    TTree* tbackground_2;
+    TTree* tbackground_3;
+    TTree* tbackground_4;
+    TTree* tbackground_5;
+    TTree* tbackground_6;
+    TTree* tbackground_7;
+    TTree* tbackground_8;
+    TTree* tbackground_9;
+    
     inputFile_signal->GetObject("C1N2_WZ_300_0_NoSys", tsignal);
-    inputFile_bkg->GetObject("diboson_NoSys", tbackground);
+    inputFile_bkg->GetObject("diboson_NoSys", tbackground_1);
+    inputFile_bkg->GetObject("multiboson_NoSys", tbackground_2);
+    inputFile_bkg->GetObject("singletop_NoSys", tbackground_3);
+    inputFile_bkg->GetObject("ttbar_NoSys", tbackground_4);
+    inputFile_bkg->GetObject("tth_NoSys", tbackground_5);
+    inputFile_bkg->GetObject("ttv_NoSys", tbackground_6);
+    inputFile_bkg->GetObject("vh_NoSys", tbackground_7);
+    inputFile_bkg->GetObject("wjets_NoSys", tbackground_8);
+    inputFile_bkg->GetObject("zjets_NoSys", tbackground_9);
 
     loader.AddSignalTree(tsignal, 1.0);
-    loader.AddBackgroundTree(tbackground, 1.0);
+    loader.AddBackgroundTree(tbackground_1, 1.0);
+    loader.AddBackgroundTree(tbackground_2, 1.0);
+    loader.AddBackgroundTree(tbackground_3, 1.0);
+    loader.AddBackgroundTree(tbackground_4, 1.0);
+    loader.AddBackgroundTree(tbackground_5, 1.0);
+    loader.AddBackgroundTree(tbackground_6, 1.0);
+    loader.AddBackgroundTree(tbackground_7, 1.0);
+    loader.AddBackgroundTree(tbackground_8, 1.0);
+    loader.AddBackgroundTree(tbackground_9, 1.0);
     
     // Apply additional cuts on the signal and background samples
     TCut mycuts = "met>200 && nJet30>=1 && nLep_base==1 && nLep_signal==1 && mt>50"; // for example: TCut mycuts = "abs(var1)<0.5 && abs(var2-0.5)<1";
@@ -60,7 +81,7 @@ void a() {
     
     //Book MVA methods
     //Cuts
-        factory.BookMethod( &loader, TMVA::Types::kCuts, "Cuts", "!H:!V:FitMethod=MC:EffSel:SampleSize=200000:VarProp=FSmart" );
+        //factory.BookMethod( &loader, TMVA::Types::kCuts, "Cuts", "!H:!V:FitMethod=MC:EffSel:SampleSize=200000:VarProp=FSmart" );
     // Fisher discriminant
 //       factory.BookMethod( &loader, TMVA::Types::kFisher, "Fisher", "H:!V:Fisher:VarTransform=None:CreateMVAPdfs:PDFInterpolMVAPdf=Spline2:NbinsMVAPdf=50:NsmoothMVAPdf=10" );
     //MLPBNN
@@ -80,8 +101,8 @@ void a() {
     factory.EvaluateAllMethods();
     
     //plot ROC curve
-  auto c1 = factory.GetROCCurve(&loader);
-  c1->Draw();
+  //auto c1 = factory.GetROCCurve(&loader);
+  //c1->Draw();
     
     // Save the output
   outputFile->Close();
