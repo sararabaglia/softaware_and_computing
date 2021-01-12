@@ -262,7 +262,7 @@ for x in range (0,3):
   signal_over_bkg_weighed[x] = signal_counter_weighed[x+1]/total_weighed_bkg
 
 #print the result of the cut flow in a txt file
-f = open("cut_result.txt", "w", "a")
+f = open("cut_result.txt", "w")
 f.write("                   ")
 for q in signal_name:
   f.write(q)
