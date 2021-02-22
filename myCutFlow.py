@@ -8,7 +8,7 @@ from pprint import pprint
 print("Do you want run the whole programm or the demonstartion?")
 print("(push 1 for the whole programm or 2 for demonstation)")
 
-run = str(input())
+run = input()
 
 #there is a control if the user push the wrong button
 while (run != '1' and run != '2'):
@@ -16,7 +16,7 @@ while (run != '1' and run != '2'):
  run = str(input())
 
 #Definition for the whole programm
-if (run == 1):
+if (run == '1'):
  #take the file root for the signal
  myfile = TFile('allTrees_signal_NoSys.root')
 
@@ -101,7 +101,7 @@ if (run == 1):
 
 
 #Definition for DEMONSTRATION
-if (run == 2):
+if (run == '2'):
  #take the file root for the signal demonstration
  myfile = TFile('signal_Demo.root')
 
@@ -370,7 +370,7 @@ f.write("                   ")
 
 for q in signal_name:
   f.write(q)
-  f.("  ")
+  f.write("  ")
 
 f.write('\n')
 
