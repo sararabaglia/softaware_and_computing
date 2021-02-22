@@ -72,7 +72,7 @@ void tmva_cut() {
     loader.AddBackgroundTree(tbackground_8, 1.0);
     loader.AddBackgroundTree(tbackground_9, 1.0);
     
-    // Apply additional cuts on the signal and background samples
+    // Apply preselection cuts on the signal and background samples
     TCut mycuts = "met>200 && nJet30>=1 && nLep_base==1 && nLep_signal==1 && mt>50"; // for example: TCut mycuts = "abs(var1)<0.5 && abs(var2-0.5)<1";
     TCut mycutb = "met>200 && nJet30>=1 && nLep_base==1 && nLep_signal==1 && mt>50"; // for example: TCut mycutb = "abs(var1)<0.5";
     
@@ -101,14 +101,12 @@ void tmva_cut() {
     factory.EvaluateAllMethods();
     
     //plot ROC curve
-  //auto c1 = factory.GetROCCurve(&loader);
-  //c1->Draw();
+  auto c2 = factory.GetROCCurve(&loader);
+  c2->Draw("AL");
     
     // Save the output
   outputFile->Close();
     
-    // Launch the GUI for the root macros
-    //TMVA::TMVAGui("TMVAOutputCV.root");
    
 
 }
