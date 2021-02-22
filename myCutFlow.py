@@ -4,18 +4,32 @@ import os
 from math import *
 from pprint import pprint
 
+#decide if you want run the whole programm or you want run a demonstration
+print("Do you want run the whole programm or the demonstartion?")
+print("(push 1 for the whole programm or 2 for demonstation)")
 
-#take the file root for the signal
-myfile = TFile('allTrees_signal_NoSys.root')
+run = str(input())
 
-#take the file root for the background
-myfile2 = TFile('allTrees_bkg_NoSys.root')
+#there is a control if the user push the wrong button
+while (run != '1' and run != '2'):
+ print("(push 1 for the whole programm or 2 for demonstation)")
+ run = str(input())
 
-#study three different hypothesis for the masses of supersymmetric particles produced, each hypothesis is contained inside a tree of the input Roor file
-signal_tree = [myfile.Get('C1N2_WZ_300_0_NoSys'), myfile.Get('C1N2_WZ_500_100_NoSys'), myfile.Get('C1N2_WZ_1200_200_NoSys')]
+#Definition for the whole programm
+if (run == 1):
+ #take the file root for the signal
+ myfile = TFile('allTrees_signal_NoSys.root')
 
-#in the root file for the background there are eleven different type of background, one in each tree
-background_tree = [myfile2.Get('diboson_NoSys'),
+ #study three different hypothesis for the masses of supersymmetric particles produced, each hypothesis is contained inside a tree of the input Roor file
+ signal_tree = [myfile.Get('C1N2_WZ_300_0_NoSys'), myfile.Get('C1N2_WZ_500_100_NoSys'), myfile.Get('C1N2_WZ_1200_200_NoSys')]
+ 
+ signal_entries = [0,0,0]
+
+ #take the file root for the background
+ myfile2 = TFile('allTrees_bkg_NoSys.root')
+
+ #in the root file for the background there are nine different types of background, one in each tree
+ background_tree = [myfile2.Get('diboson_NoSys'),
                    myfile2.Get('multiboson_NoSys'),
                    myfile2.Get('singletop_NoSys'),
                    myfile2.Get('ttbar_NoSys'),
@@ -24,81 +38,154 @@ background_tree = [myfile2.Get('diboson_NoSys'),
                    myfile2.Get('vh_NoSys'),
                    myfile2.Get('wjets_NoSys'),
                    myfile2.Get('zjets_NoSys')]
+ 
+ background_entries = [0,0,0,0,0,0,0,0,0]
+ 
+ #definition of signal and background type
+ signal_name = ["WZ (300,0)", "WZ (500,100)", "WZ (1200,200)"]
+ background_name = ["Diboson", "Multiboson", "Single-top", "ttbar", "ttbarH", "ttbarV", "vh", "Wjets", "Zjets"]
+ 
+ #set to zero the four matricies of counter, each element represents the counter after each cut. 
+ #inside each elements there is the name of the cut and after that there are three number that are the counter for each signal trees that I consider for my analysis
+ signal_counter = [["Preselection Cut",0,0,0],
+                   ["Cut 1 (Nlep=1)",0,0,0],
+                   ["Cut 2 (pT>25)",0,0,0],
+                   ["Cut 3 (Njet(pT>30)=2-3)",0,0,0],
+                   ["Cut 4 (Nb-jet(pT>30)=0)",0,0,0],
+                   ["Cut 5 (MET>200)",0,0,0],
+                   ["Cut 6 (Delta_phi(l,met)<2.8)",0,0,0],
+                   ["Cut 7 (70<mjj<105)",0,0,0],
+                   ["Cut 8 (Nlarge-Rjet=0)",0,0,0],
+                   ["Cut 9a (200<mT<380)",0,0,0],
+                   ["Cut 9b (mT>380)",0,0,0]]
+
+ #counter for the signal tree with a weight for each events
+ signal_counter_weighed = [["Preselection Cut",0,0,0],
+                           ["Cut 1 (Nlep=1)",0,0,0],
+                           ["Cut 2 (pT>25)",0,0,0],
+                           ["Cut 3 (Njet(pT>30)=2-3)",0,0,0],
+                           ["Cut 4 (Nb-jet(pT>30)=0)",0,0,0],
+                           ["Cut 5 (MET>200)",0,0,0],
+                           ["Cut 6 (Delta_phi(l,met)<2.8)",0,0,0],
+                           ["Cut 7 (70<mjj<105)",0,0,0],
+                           ["Cut 8 (Nlarge-Rjet=0)",0,0,0],
+                           ["Cut 9a (200<mT<380)",0,0,0],
+                           ["Cut 9b (mT>380)",0,0,0]]
+
+ #inside each elements there is the name of the cut and after that there are nine number that are the counter for each background trees that I consider for my analysis
+ bkg_counter = [["Preselection Cut",0,0,0,0,0,0,0,0,0],
+                ["Cut 1 (Nlep=1)",0,0,0,0,0,0,0,0,0],
+                ["Cut 2 (pT>25)",0,0,0,0,0,0,0,0,0],
+                ["Cut 3 (Njet(pT>30)=2-3)",0,0,0,0,0,0,0,0,0],
+                ["Cut 4 (Nb-jet(pT>30)=0)",0,0,0,0,0,0,0,0,0],
+                ["Cut 5 (MET>200)",0,0,0,0,0,0,0,0,0],
+                ["Cut 6 (Delta_phi(l,met)<2.8)",0,0,0,0,0,0,0,0,0],
+                ["Cut 7 (70<mjj<105)",0,0,0,0,0,0,0,0,0],
+                ["Cut 8 (Nlarge-Rjet=0)",0,0,0,0,0,0,0,0,0],
+                ["Cut 9a (200<mT<380)",0,0,0,0,0,0,0,0,0],
+                ["Cut 9b (mT>380)",0,0,0,0,0,0,0,0,0]]
+
+ #counter for the background tree with a weight for each events
+ bkg_counter_weighed = [["Preselection Cut",0,0,0,0,0,0,0,0,0],
+                        ["Cut 1 (Nlep=1)",0,0,0,0,0,0,0,0,0],
+                        ["Cut 2 (pT>25)",0,0,0,0,0,0,0,0,0],
+                        ["Cut 3 (Njet(pT>30)=2-3)",0,0,0,0,0,0,0,0,0],
+                        ["Cut 4 (Nb-jet(pT>30)=0)",0,0,0,0,0,0,0,0,0],
+                        ["Cut 5 (MET>200)",0,0,0,0,0,0,0,0,0],
+                        ["Cut 6 (Delta_phi(l,met)<2.8)",0,0,0,0,0,0,0,0,0],
+                        ["Cut 7 (70<mjj<105)",0,0,0,0,0,0,0,0,0],
+                        ["Cut 8 (Nlarge-Rjet=0)",0,0,0,0,0,0,0,0,0],
+                        ["Cut 9a (200<mT<380)",0,0,0,0,0,0,0,0,0],
+                        ["Cut 9b (mT>380)",0,0,0,0,0,0,0,0,0]]
+
+
+
+#Definition for DEMONSTRATION
+if (run == 2):
+ #take the file root for the signal demonstration
+ myfile = TFile('signal_Demo.root')
+
+ #in the dimonstration only one hypthesis for the masses of supersymmetric particles is studied
+ signal_tree = [myfile.Get('C1N2_WZ_300_0_NoSys')]
+ 
+ signal_entries = [0]
+ #take the file root for the background demonstration
+ myfile2 = TFile('bkg_Demo.root')
+ 
+ background_entries = [0]
+
+ #in the dimonstration only one type of background is studied
+ background_tree = [myfile2.Get('tth_NoSys')]
+ 
+ #definition of signal and background type
+ signal_name = ["WZ (300,0)"]
+ background_name = ["ttbarH"]
+
+
+
+ #set to zero the four matricies of counter for demonstration, each element represents the counter after each cut. 
+ signal_counter = [["Preselection Cut",0],
+                   ["Cut 1 (Nlep=1)",0],
+                   ["Cut 2 (pT>25)",0],
+                   ["Cut 3 (Njet(pT>30)=2-3)",0],
+                   ["Cut 4 (Nb-jet(pT>30)=0)",0],
+                   ["Cut 5 (MET>200)",0],
+                   ["Cut 6 (Delta_phi(l,met)<2.8)",0],
+                   ["Cut 7 (70<mjj<105)",0],
+                   ["Cut 8 (Nlarge-Rjet=0)",0],
+                   ["Cut 9a (200<mT<380)",0],
+                   ["Cut 9b (mT>380)",0]]
+
+ signal_counter_weighed = [["Preselection Cut",0],
+                           ["Cut 1 (Nlep=1)",0],
+                           ["Cut 2 (pT>25)",0],
+                           ["Cut 3 (Njet(pT>30)=2-3)",0],
+                           ["Cut 4 (Nb-jet(pT>30)=0)",0],
+                           ["Cut 5 (MET>200)",0],
+                           ["Cut 6 (Delta_phi(l,met)<2.8)",0],
+                           ["Cut 7 (70<mjj<105)",0],
+                           ["Cut 8 (Nlarge-Rjet=0)",0],
+                           ["Cut 9a (200<mT<380)",0],
+                           ["Cut 9b (mT>380)",0]]
+
+ bkg_counter = [["Preselection Cut",0],
+                ["Cut 1 (Nlep=1)",0],
+                ["Cut 2 (pT>25)",0],
+                ["Cut 3 (Njet(pT>30)=2-3)",0],
+                ["Cut 4 (Nb-jet(pT>30)=0)",0],
+                ["Cut 5 (MET>200)",0],
+                ["Cut 6 (Delta_phi(l,met)<2.8)",0],
+                ["Cut 7 (70<mjj<105)",0],
+                ["Cut 8 (Nlarge-Rjet=0)",0],
+                ["Cut 9a (200<mT<380)",0],
+                ["Cut 9b (mT>380)",0]]
+
+ bkg_counter_weighed = [["Preselection Cut",0],
+                        ["Cut 1 (Nlep=1)",0],
+                        ["Cut 2 (pT>25)",0],
+                        ["Cut 3 (Njet(pT>30)=2-3)",0],
+                        ["Cut 4 (Nb-jet(pT>30)=0)",0],
+                        ["Cut 5 (MET>200)",0],
+                        ["Cut 6 (Delta_phi(l,met)<2.8)",0],
+                        ["Cut 7 (70<mjj<105)",0],
+                        ["Cut 8 (Nlarge-Rjet=0)",0],
+                        ["Cut 9a (200<mT<380)",0],
+                        ["Cut 9b (mT>380)",0]]
+
+
 
 #total number of events in each signal tree
-signal_entries = [0,0,0]
-signal_entries[0] = signal_tree[0].GetEntries()
-signal_entries[1] = signal_tree[1].GetEntries()
-signal_entries[2] = signal_tree[2].GetEntries()
+for i in range(0, len(signal_tree)):
+ signal_entries[i] = signal_tree[i].GetEntries()
 
 #total number of events in each background trees
-background_entries = [0,0,0,0,0,0,0,0,0]
-
-for i in range(0,8):
+for i in range(0,len(background_tree)):
  background_entries[i] = background_tree[i].GetEntriesFast()
-
-#definition of signal and background type
-signal_name = ["WZ (300,0)", "WZ (500,100)", "WZ (1200,200)"]
-background_name = ["Diboson", "Multiboson", "Single-top", "ttbar", "ttbarH", "ttbarV", "vh", "Wjets", "Zjets"]
-
-
-#set to zero the four matricies of counter, each element represents the counter after each cut. 
-#inside each elements there is the name of the cut and after that there are three number that are the counter for each signal trees that I consider for my analysis
-signal_counter = [["Preselection Cut",0,0,0],
-                  ["Cut 1 (Nlep=1)",0,0,0],
-                  ["Cut 2 (pT>25)",0,0,0],
-                  ["Cut 3 (Njet(pT>30)=2-3)",0,0,0],
-                  ["Cut 4 (Nb-jet(pT>30)=0)",0,0,0],
-                  ["Cut 5 (MET>200)",0,0,0],
-                  ["Cut 6 (Delta_phi(l,met)<2.8)",0,0,0],
-                  ["Cut 7 (70<mjj<105)",0,0,0],
-                  ["Cut 8 (Nlarge-Rjet=0)",0,0,0],
-                  ["Cut 9a (200<mT<380)",0,0,0],
-                  ["Cut 9b (mT>380)",0,0,0]]
-
-#counter for the signal tree with a weight for each events
-signal_counter_weighed = [["Preselection Cut",0,0,0],
-                          ["Cut 1 (Nlep=1)",0,0,0],
-                          ["Cut 2 (pT>25)",0,0,0],
-                          ["Cut 3 (Njet(pT>30)=2-3)",0,0,0],
-                          ["Cut 4 (Nb-jet(pT>30)=0)",0,0,0],
-                          ["Cut 5 (MET>200)",0,0,0],
-                          ["Cut 6 (Delta_phi(l,met)<2.8)",0,0,0],
-                          ["Cut 7 (70<mjj<105)",0,0,0],
-                          ["Cut 8 (Nlarge-Rjet=0)",0,0,0],
-                          ["Cut 9a (200<mT<380)",0,0,0],
-                          ["Cut 9b (mT>380)",0,0,0]]
-
-#inside each elements there is the name of the cut and after that there are nine number that are the counter for each background trees that I consider for my analysis
-bkg_counter = [["Preselection Cut",0,0,0,0,0,0,0,0,0],
-               ["Cut 1 (Nlep=1)",0,0,0,0,0,0,0,0,0],
-               ["Cut 2 (pT>25)",0,0,0,0,0,0,0,0,0],
-               ["Cut 3 (Njet(pT>30)=2-3)",0,0,0,0,0,0,0,0,0],
-               ["Cut 4 (Nb-jet(pT>30)=0)",0,0,0,0,0,0,0,0,0],
-               ["Cut 5 (MET>200)",0,0,0,0,0,0,0,0,0],
-               ["Cut 6 (Delta_phi(l,met)<2.8)",0,0,0,0,0,0,0,0,0],
-               ["Cut 7 (70<mjj<105)",0,0,0,0,0,0,0,0,0],
-               ["Cut 8 (Nlarge-Rjet=0)",0,0,0,0,0,0,0,0,0],
-               ["Cut 9a (200<mT<380)",0,0,0,0,0,0,0,0,0],
-               ["Cut 9b (mT>380)",0,0,0,0,0,0,0,0,0]]
-
-#counter for the background tree with a weight for each events
-bkg_counter_weighed = [["Preselection Cut",0,0,0,0,0,0,0,0,0],
-                       ["Cut 1 (Nlep=1)",0,0,0,0,0,0,0,0,0],
-                       ["Cut 2 (pT>25)",0,0,0,0,0,0,0,0,0],
-                       ["Cut 3 (Njet(pT>30)=2-3)",0,0,0,0,0,0,0,0,0],
-                       ["Cut 4 (Nb-jet(pT>30)=0)",0,0,0,0,0,0,0,0,0],
-                       ["Cut 5 (MET>200)",0,0,0,0,0,0,0,0,0],
-                       ["Cut 6 (Delta_phi(l,met)<2.8)",0,0,0,0,0,0,0,0,0],
-                       ["Cut 7 (70<mjj<105)",0,0,0,0,0,0,0,0,0],
-                       ["Cut 8 (Nlarge-Rjet=0)",0,0,0,0,0,0,0,0,0],
-                       ["Cut 9a (200<mT<380)",0,0,0,0,0,0,0,0,0],
-                       ["Cut 9b (mT>380)",0,0,0,0,0,0,0,0,0]]
 
 
 #start cut flow for signal
 
-for tree_number in range(0,3):
+for tree_number in range(0,len(signal_tree)):
  for j_entry in range(signal_entries[tree_number]):
   signal_tree[tree_number].GetEvent(j_entry)
   weight = getattr(signal_tree[tree_number], "genWeight")*getattr(signal_tree[tree_number], "pileupWeight")*getattr(signal_tree[tree_number], "eventWeight")*getattr(signal_tree[tree_number], "leptonWeight")*getattr(signal_tree[tree_number], "bTagWeight")
@@ -175,7 +262,7 @@ for tree_number in range(0,3):
 
 #start cut flow for the background
 
-for bkg_type in range(0,9):
+for bkg_type in range(0,len(background_tree)):
  for i_entry in range(background_entries[bkg_type]):
   background_tree[bkg_type].GetEvent(i_entry)
   weight = getattr(background_tree[bkg_type], "genWeight")*getattr(background_tree[bkg_type], "pileupWeight")*getattr(background_tree[bkg_type], "eventWeight")*getattr(background_tree[bkg_type], "leptonWeight")*getattr(background_tree[bkg_type], "bTagWeight")
@@ -250,20 +337,37 @@ for bkg_type in range(0,9):
 #end cut flow for the background
 
 #computation of signal over the background (S/B)
-total_bkg = bkg_counter[10][1]+bkg_counter[10][2]+bkg_counter[10][3]+bkg_counter[10][4]+bkg_counter[10][5]+bkg_counter[10][6]+bkg_counter[10][7]+bkg_counter[10][8]+bkg_counter[10][9]
-total_weighed_bkg = bkg_counter_weighed[10][1]+bkg_counter_weighed[10][2]+bkg_counter_weighed[10][3]+bkg_counter_weighed[10][4]+bkg_counter_weighed[10][5]+bkg_counter_weighed[10][6]+bkg_counter_weighed[10][7]+bkg_counter_weighed[10][8]+bkg_counter_weighed[10][9]
-signal_over_bkg = [0,0,0]
-signal_over_bkg_weighed = [0,0,0]
+total_bkg = 0
+total_weighed_bkg = 0
 
-for z in range (0,3):
+for v in range (0,len(background_tree)):
+ total_bkg = total_bkg + bkg_counter[9][v+1]
+ total_weighed_bkg = total_weighed_bkg + bkg_counter_weighed[9][v+1]
+
+if (run == '1'):
+ signal_over_bkg = [0,0,0]
+ signal_over_bkg_weighed = [0,0,0]
+
+if (run == '2'):
+ signal_over_bkg = [0]
+ signal_over_bkg_weighed = [0]
+
+
+for z in range (0,len(signal_tree)):
   signal_over_bkg[z] = signal_counter[9][z+1]/total_bkg
 
-for x in range (0,3):
+for x in range (0,len(signal_tree)):
   signal_over_bkg_weighed[x] = signal_counter_weighed[9][x+1]/total_weighed_bkg
 
 #print the result of the cut flow in a txt file
-f = open("cut_result.txt", "w")
+if (run == '1'):
+ f = open("cut_result.txt", "w")
+
+if (run == '2'):
+ f = open("Demo_cut_result.txt", "w")
+
 f.write("                   ")
+
 for q in signal_name:
   f.write(q)
   f.("  ")
@@ -297,17 +401,17 @@ for g in bkg_counter_weighed:
 for s in signal_over_bkg:
   i = 1
   f.write("S/B_")
-  f.Write(str(i))
+  f.write(str(i))
   f.write(" = ")
-  f.print(str(s))
+  f.write(str(s))
   i = i + 1
 
 for s in signal_over_bkg:
   i = 1
   f.write("S/B_")
-  f.Write(str(i))
+  f.write(str(i))
   f.write(" = ")
-  f.print(str(s))
+  f.write(str(s))
   i = i + 1
 
 f.close()
