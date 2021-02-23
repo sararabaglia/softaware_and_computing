@@ -19,10 +19,15 @@
 
 
 void tmva_cut() {
-    
-    auto inputFile_signal = TFile::Open("allTrees_signal_NoSys.root");
-    auto inputFile_bkg = TFile::Open("allTrees_bkg_NoSys.root");
-    
+    cout << "Do you want run the whole programm or only a demonstration? (Push 1 for whole programm or 2 for demonstration)" << endl;
+    char run;
+    cin >> run;
+if (run == '1')
+{
+    auto inputFile_signal = TFile::Open("/home/ATLAS-T3/student-26/software_and_computing/allTrees_signal_NoSys.root");
+    auto inputFile_bkg = TFile::Open("/home/ATLAS-T3/student-26/software_and_computing/allTrees_bkg_NoSys.root");
+} 
+
     auto outputFile = TFile::Open( "TMVAOutputCV.root", "RECREATE" );
 
     TMVA::Factory factory("TMVAClassification", outputFile, "!V:ROC:!Correlations:!Silent:Color:!DrawProgressBar:AnalysisType=Classification");
@@ -88,7 +93,7 @@ void tmva_cut() {
     //factory.BookMethod(TMVA::Types::kMLP, "MLP", "H:!V:HiddenLayers=3");
 //      factory.BookMethod( &loader, TMVA::Types::kMLP, "MLPBNN", "H:!V:NeuronType=tanh:VarTransform=N:NCycles=60:HiddenLayers=N+5:TestRate=5:TrainingMethod=BFGS:UseRegulator" );
     // Adaptive Boost
-        factory.BookMethod( &loader, TMVA::Types::kBDT, "BDT","NTrees=200:BoostType=AdaBoost");
+    factory.BookMethod( &loader, TMVA::Types::kBDT, "BDT","NTrees=200:BoostType=AdaBoost");
     
     // Tell the factory to train, test, and evaluate the MVAs
     // Train MVAs using the set of training events
@@ -101,11 +106,11 @@ void tmva_cut() {
     factory.EvaluateAllMethods();
     
     //plot ROC curve
-  auto c2 = factory.GetROCCurve(&loader);
-  c2->Draw("AL");
+    auto c2 = factory.GetROCCurve(&loader);
+    c2->Draw("AL");
     
     // Save the output
-  outputFile->Close();
+    outputFile->Close();
     
    
 
