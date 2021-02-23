@@ -379,24 +379,32 @@ for a in signal_counter:
     f.write(str(b))
     f.write(" ")
   f.write('\n')
+  
+f.write('\n')
 
 for c in signal_counter_weighed:
   for d in c:
-    f.write(str(c))
+    f.write(str(d))
     f.write(" ")
   f.write('\n')
+  
+f.write('\n')
 
 for e in bkg_counter:
   for m in e:
     f.write(str(m))
     f.write(" ")
   f.write('\n')
+  
+f.write('\n')
 
 for g in bkg_counter_weighed:
   for h in g:
     f.write(str(h))
     f.write(" ")
   f.write('\n')
+  
+f.write('\n')
 
 for s in signal_over_bkg:
   i = 1
@@ -405,6 +413,8 @@ for s in signal_over_bkg:
   f.write(" = ")
   f.write(str(s))
   i = i + 1
+  
+f.write('\n')
 
 for s in signal_over_bkg:
   i = 1
