@@ -18,7 +18,7 @@ while (run != '1' and run != '2'):
 #Definition for the whole programm
 if (run == '1'):
  #take the file root for the signal
- myfile = TFile('allTrees_signal_NoSys.root')
+ myfile = TFile('/home/ATLAS-T3/student-26/software_and_computing/allTrees_signal_NoSys.root')
 
  #study three different hypothesis for the masses of supersymmetric particles produced, each hypothesis is contained inside a tree of the input Roor file
  signal_tree = [myfile.Get('C1N2_WZ_300_0_NoSys'), myfile.Get('C1N2_WZ_500_100_NoSys'), myfile.Get('C1N2_WZ_1200_200_NoSys')]
@@ -26,7 +26,7 @@ if (run == '1'):
  signal_entries = [0,0,0]
 
  #take the file root for the background
- myfile2 = TFile('allTrees_bkg_NoSys.root')
+ myfile2 = TFile('/home/ATLAS-T3/student-26/software_and_computing/allTrees_bkg_NoSys.root')
 
  #in the root file for the background there are nine different types of background, one in each tree
  background_tree = [myfile2.Get('diboson_NoSys'),
