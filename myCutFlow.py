@@ -354,7 +354,7 @@ if (run == '2'):
 
 
 for z in range (0,len(signal_tree)):
-  signal_over_bkg[z] = signal_counter[9][z+1]/total_bkg
+  signal_over_bkg[z] = float(signal_counter[9][z+1])/float(total_bkg)
 
 for x in range (0,len(signal_tree)):
   signal_over_bkg_weighed[x] = signal_counter_weighed[9][x+1]/total_weighed_bkg
@@ -416,9 +416,9 @@ for s in signal_over_bkg:
   
 f.write('\n')
 
-for s in signal_over_bkg:
+for s in signal_over_bkg_weighed:
   i = 1
-  f.write("S/B_")
+  f.write("S/B_weighed")
   f.write(str(i))
   f.write(" = ")
   f.write(str(s))
