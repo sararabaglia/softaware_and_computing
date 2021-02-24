@@ -8,12 +8,12 @@ from pprint import pprint
 print("Do you want run the whole programm or the demonstartion?")
 print("(push 1 for the whole programm or 2 for demonstation)")
 
-run = input()
+run = raw_input()
 
 #there is a control if the user push the wrong button
 while (run != '1' and run != '2'):
  print("(push 1 for the whole programm or 2 for demonstation)")
- run = str(input())
+ run = raw_input()
 
 #Definition for the whole programm
 if (run == '1'):
