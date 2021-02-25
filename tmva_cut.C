@@ -29,6 +29,20 @@ void tmva_cut() {
     
 if (run == '1')
 {
+    cout << "WARNING: if you want run the whole program you have to be inside the ATLAS-T3" << '\n' << "Do you want continue? [y/n]" << endl;
+    char answer_1;
+    cin >> answer_1;
+    
+    while (answer_1 != 'y' && answer_1 != 'n'){
+     cout << "Do you want continue? [y/n]" << endl;
+     cin >> answer_1;
+    }
+    
+    if (answer_1 == 'n'){
+     exit();
+    }
+    
+    if (answer_1 == 'y'){
     auto inputFile_signal_1 = TFile::Open("/home/ATLAS-T3/student-26/software_and_computing/allTrees_signal_NoSys.root");
     auto inputFile_bkg = TFile::Open("/home/ATLAS-T3/student-26/software_and_computing/allTrees_bkg_NoSys.root");
     
@@ -175,12 +189,28 @@ if (run == '1')
     outputFile_1->Close();
     outputFile_1->Close();
     outputFile_1->Close();
+    }
 } 
 
 if (run == '2')
 {
+    cout <<"WARNING: if you want run the demonstration you must have the root files signal_Demo.root and bkg2_Demo.root inside your directory" 
+         << '\n' << "Do you want continue? [y/n]") << endl;
+    char answer_2;
+    cin >> answer_2;
+    
+    while (answer_2 != 'y' && answer_2 != 'n'){
+     cout << "Do you want continue? [y/n]" << endl;
+     cin >> answer_2;
+    }
+    
+    if (answer_2 == 'n'){
+     exit();
+    }
+    
+   if (answer_2 == 'y'){
     auto inputFile_signal = TFile::Open("signal_Demo.root");
-    auto inputFile_bkg = TFile::Open("bkg_Demo.root");
+    auto inputFile_bkg = TFile::Open("bkg2_Demo.root");
     
     auto outputFile = TFile::Open( "TMVAOutput_Demo.root", "RECREATE" );
 
@@ -202,7 +232,7 @@ if (run == '2')
     TTree* tbackground;
     
     inputFile_signal->GetObject("C1N2_WZ_300_0_NoSys", tsignal);
-    inputFile_bkg->GetObject("tth_NoSys", tbackground);
+    inputFile_bkg->GetObject("multiboson_NoSys", tbackground);
     loader.AddSignalTree(tsignal, 1.0);
     loader.AddBackgroundTree(tbackground, 1.0);
     
@@ -230,6 +260,6 @@ if (run == '2')
     
     // Save the output
     outputFile->Close();
-}
-
+   }  
+ }
 }
