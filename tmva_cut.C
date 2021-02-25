@@ -22,6 +22,11 @@ void tmva_cut() {
     cout << "Do you want run the whole programm or only a demonstration? (Push 1 for whole programm or 2 for demonstration)" << endl;
     char run;
     cin >> run;
+    while (run != '1' && run != '2'){
+     cout << "Push 1 for whole programm or 2 for demonstration" << endl;
+     cin >> run;
+    }
+    
 if (run == '1')
 {
     auto inputFile_signal_1 = TFile::Open("/home/ATLAS-T3/student-26/software_and_computing/allTrees_signal_NoSys.root");
