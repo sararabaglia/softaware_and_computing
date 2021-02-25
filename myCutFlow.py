@@ -29,11 +29,11 @@ if (run == '1'):
   
  if (answer == 'n'):
   print("Do you want run the demonstration? [y/n]")
-  answer_2 = = raw_input()
+  answer_2 = raw_input()
   
-  while (answer != 'y' and answer != 'n'):
+  while (answer_2 != 'y' and answer_2 != 'n'):
    print("Do you want continue? [y/n]")
-   answer = raw_input()
+   answer_2 = raw_input()
    
   if (answer_2 == 'y'):
    run = '2'
@@ -134,7 +134,7 @@ if (run == '2'):
  
  while (answer_3 != 'y' and answer_3 != 'n'):
   print("Do you want continue? [y/n]")
-  answer = raw_input()
+  answer_3 = raw_input()
  
  if (answer_3 == 'n'):
   exit()
