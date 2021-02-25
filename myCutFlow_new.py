@@ -17,6 +17,8 @@ while (run != '1' and run != '2'):
 
 #Definition for the whole programm
 if (run == '1'):
+ 
+ #some controls to avoid that the programm fails
  print("WARNING: if you want run the whole programm you have to be inside the ATLAS-T3")
  print("Do you want continue? [y/n]")
  answer = raw_input()
@@ -28,7 +30,12 @@ if (run == '1'):
  if (answer == 'n'):
   print("Do you want run the demonstration? [y/n]")
   answer_2 = = raw_input()
-  if (answer_== 'y'):
+  
+  while (answer != 'y' and answer != 'n'):
+   print("Do you want continue? [y/n]")
+   answer = raw_input()
+   
+  if (answer_2 == 'y'):
    run = '2'
   if (answer_2 == 'n'):
    exit()
@@ -120,6 +127,18 @@ if (run == '1'):
 
 #Definition for DEMONSTRATION
 if (run == '2'):
+ print ("WARNING: if you want run the demonstration you must have the root files signal_Demo.root and bkg_Demo.root inside your directory")
+ print ("Do you want continue? [y/n]")
+ 
+ answer_3 = raw_input()
+ 
+ while (answer_3 != 'y' and answer_3 != 'n'):
+  print("Do you want continue? [y/n]")
+  answer = raw_input()
+ 
+ if (answer_3 == 'n'):
+  exit()
+ 
  #take the file root for the signal demonstration
  myfile = TFile('signal_Demo.root')
 
