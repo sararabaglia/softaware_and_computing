@@ -19,11 +19,11 @@
 
 
 void tmva_cut() {
-    cout << "Do you want run the whole programm or only a demonstration? (Push 1 for whole programm or 2 for demonstration)" << endl;
+    cout << "Do you want run the whole program or only a demonstration? (Push 1 for whole program or 2 for demonstration)" << endl;
     char run;
     cin >> run;
     while (run != '1' && run != '2'){
-     cout << "Push 1 for whole programm or 2 for demonstration" << endl;
+     cout << "Push 1 for whole program or 2 for demonstration" << endl;
      cin >> run;
     }
     
