@@ -39,7 +39,7 @@ if (run == '1')
     }
     
     if (answer_1 == 'n'){
-     exit();
+     break;
     }
     
     if (answer_1 == 'y'){
@@ -195,7 +195,7 @@ if (run == '1')
 if (run == '2')
 {
     cout <<"WARNING: if you want run the demonstration you must have the root files signal_Demo.root and bkg2_Demo.root inside your directory" 
-         << '\n' << "Do you want continue? [y/n]") << endl;
+         << '\n' << "Do you want continue? [y/n]" << endl;
     char answer_2;
     cin >> answer_2;
     
@@ -205,7 +205,7 @@ if (run == '2')
     }
     
     if (answer_2 == 'n'){
-     exit();
+     break;
     }
     
    if (answer_2 == 'y'){
