@@ -127,7 +127,7 @@ if (run == '1'):
 
 #Definition for DEMONSTRATION
 if (run == '2'):
- print ("WARNING: if you want run the demonstration you must have the root files signal_Demo.root and bkg_Demo.root inside your directory")
+ print ("WARNING: if you want run the demonstration you must have the root files signal_Demo.root and bkg2_Demo.root inside your directory")
  print ("Do you want continue? [y/n]")
  
  answer_3 = raw_input()
@@ -147,16 +147,16 @@ if (run == '2'):
  
  signal_entries = [0]
  #take the file root for the background demonstration
- myfile2 = TFile('bkg_Demo.root')
+ myfile2 = TFile('bkg2_Demo.root')
  
  background_entries = [0]
 
  #in the dimonstration only one type of background is studied
- background_tree = [myfile2.Get('tth_NoSys')]
+ background_tree = [myfile2.Get('multiboson_NoSys')]
  
  #definition of signal and background type
  signal_name = ["WZ (300,0)"]
- background_name = ["ttbarH"]
+ background_name = ["Multiboson"]
 
 
 
