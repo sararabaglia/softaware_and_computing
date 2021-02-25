@@ -32,7 +32,7 @@ if (run == '1'):
   answer_2 = raw_input()
   
   while (answer_2 != 'y' and answer_2 != 'n'):
-   print("Do you want continue? [y/n]")
+   print("Do you want run the demonstration? [y/n]")
    answer_2 = raw_input()
    
   if (answer_2 == 'y'):
