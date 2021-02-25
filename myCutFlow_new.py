@@ -4,22 +4,22 @@ import os
 from math import *
 from pprint import pprint
 
-#decide if you want run the whole programm or you want run a demonstration
-print("Do you want run the whole programm or the demonstartion?")
-print("(push 1 for the whole programm or 2 for demonstation)")
+#decide if you want run the whole program or you want run a demonstration
+print("Do you want run the whole program or the demonstartion?")
+print("(push 1 for the whole program or 2 for demonstation)")
 
 run = raw_input()
 
 #there is a control if the user push the wrong button
 while (run != '1' and run != '2'):
- print("(push 1 for the whole programm or 2 for demonstation)")
+ print("(push 1 for the whole program or 2 for demonstation)")
  run = raw_input()
 
-#Definition for the whole programm
+#Definition for the whole program
 if (run == '1'):
  
- #some controls to avoid that the programm fails
- print("WARNING: if you want run the whole programm you have to be inside the ATLAS-T3")
+ #some controls to avoid that the program fails
+ print("WARNING: if you want run the whole program you have to be inside the ATLAS-T3")
  print("Do you want continue? [y/n]")
  answer = raw_input()
  
