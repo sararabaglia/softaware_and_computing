@@ -8,10 +8,21 @@ TMVA produces a root file with the results of the BDT and plot on a Canvas the R
 It's possible run the whole program that perform the analysis of three different hypothesis for the signal with respect all types of background (it can take many hours).
 It's possible run only a Demo that perform the analysis of one signal and one type of background (few minutes).
 
-#Run
+# Version
+
+The program was tested with the version of root 6.20.06 and the version of python 2.7.16
+
+# Run
 
 Analysis can be generated using the script master.py. It runs in sequence the CutFlows (myCutFlow.py) and the BDT (tmva_cut.C)
 
-'''python master.py'''
+To execute the program:
+
+'''python master.py
+
+program asks you if you want run the simulation or the whole program of the CutFlow
+
+program asks you if you want run also the TMVA part'''
+
 
 All programs and root files for Demo can be downloaded from the following link (https://github.com/sararabaglia/software_and_computing.git)
